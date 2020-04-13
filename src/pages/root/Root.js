@@ -4,6 +4,7 @@ import Thumb from '../../components/thumb/Thumb';
 import Grid from '@material-ui/core/Grid';
 
 const Root = props => {
+    
     const {movies} = useMovies();
     const [loading, setLoading] = useState(true);
     const [thumbs, setThumbs] = useState(null);

@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { imgdir } from '../../utils/utils';
+import { imgdir, moviesclass } from '../../utils/utils';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
 
 const Thumb = props => {
     const [tags, setTags] = useState(null);
+    const [read, setRead] = useState(false);
     useEffect(() => {
-        console.log(props.data.tags)
         let tmptags = '';
         props.data.tags.forEach((v, i) => {
             if(i !== props.data.tags.length - 1){
-                console.log(v, i)
                 tmptags += `${v.name}, ` 
             }else{
                 tmptags += v.name
@@ -30,27 +30,52 @@ const Thumb = props => {
 //  °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
     return (
-        <Grid item xs={3}>
-            <Link to={`/${props.data.id}`} className={classes.link}>
+        <Grid item xs={3} className={`p-cardmovie ${moviesclass}`} data-title={props.data.name} data-tags={tags} data-acteurs={props.data.acteurs} data-realisateur={props.data.realisateur}>
                 <Card>
                     <CardActionArea>
-                        <CardMedia
-                        image={imgdir+props.data.imageName}
-                        src='img'
-                        title={props.data.name}
-                        />
+                        <Link to={`/${props.data.id}`} className={classes.link}>
+                            <CardMedia
+                            image={imgdir+props.data.imageName}
+                            src='img'
+                            title={props.data.name}
+                            />
+                        </Link>
                         <CardContent>
                             <Grid container spacing={2}>
                                 <Grid item xs={12}>
-                                    <Typography gutterBottom variant="h4" component="h2">
+                                    <Typography gutterBottom variant="h4" component="h2" className="movies-title">
                                         {props.data.name}
                                     </Typography>
                                 </Grid>
-                                <Grid item xs={12}>
-                                    <Typography variant="body1" color="textPrimary" component="p">
-                                        Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                                        across all continents except Antarctica
+                                <Grid item xs={12} className="flex-center" onClick={() => {setRead(!read)}}>
+                                    <Typography variant="overline" color="textSecondary" component="p">
+                                        {read ? 'Cacher' : 'Lire le résumé'}
                                     </Typography>
+                                </Grid>
+                                <Grid item xs={12} className={read ? 'show' : 'hidden'}>
+                                    <Typography variant="body1" color="textPrimary" component="p">
+                                        {props.data.resume}
+                                    </Typography>
+                                </Grid>
+                                <Grid item xs={6} className="flex-start">
+                                <Typography variant="overline" color="textSecondary" component="p">
+                                    ACTEURS
+                                </Typography>
+                                </Grid>
+                                <Grid item xs={6} className="flex-end">
+                                <Typography variant="overline" color="textSecondary" component="p">
+                                    REALISATEURS
+                                </Typography>
+                                </Grid>
+                                <Grid item xs={6} className="flex-start">
+                                <Typography variant="h6" component="p">
+                                    {props.data.acteurs}
+                                </Typography>
+                                </Grid>
+                                <Grid item xs={6} className="flex-end">
+                                <Typography variant="h6" component="p">
+                                    {props.data.realisateur}
+                                </Typography>
                                 </Grid>
                                 <Grid item xs={6} className="flex-start">
                                 <Typography variant="overline" color="textSecondary" component="p">
@@ -76,7 +101,6 @@ const Thumb = props => {
                         </CardContent>
                     </CardActionArea>                
                 </Card>
-            </Link>        
         </Grid>
   );
 }

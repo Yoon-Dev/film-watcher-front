@@ -3,7 +3,8 @@
   overflow: hidden;
   min-height: 100vh;
 }
-
+/* VIEW TRANSITION */
+/* °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°° */
 .fade-enter {
   opacity: 0;
   position: absolute !important;
@@ -26,7 +27,11 @@
   z-index: -1 !important;
   transition: all 200ms linear;
 }
-
+/* END view transition */
+/* °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°° */
+/* ++++++++++++++++++++++++++++++++++++++++++++++ */
+/* ALIGNEMENT */
+/* °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°° */
 .flex-center {
   display: flex !important;
   justify-content: center !important;
@@ -36,15 +41,33 @@
 .flex-start {
   display: flex !important;
   justify-content: flex-start !important;
-  align-items: center !important;
 }
 
 .flex-end {
   display: flex !important;
   justify-content: flex-end !important;
-  align-items: center !important;
 }
-
+/* END alignement */
+/* °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°° */
+/* ++++++++++++++++++++++++++++++++++++++++++++++ */
+/* MARGE/PADDING */
+/* °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°° */
 .mt-container{
   margin: 6em 2em 6em 2em;
 }
+.p-cardmovie{
+  padding: 2em;
+}
+/* END marge */
+/* °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°° */
+/* ++++++++++++++++++++++++++++++++++++++++++++++ */
+/* VISIBILYTY */
+/* °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°° */
+.hidden{
+  display: none !important;
+}
+.show{
+  display: flex !important;
+}
+/* END visibility */
+/* °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°° */

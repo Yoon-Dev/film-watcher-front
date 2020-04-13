@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { CSSTransition, TransitionGroup, } from 'react-transition-group';
 import Header from './components/header/Header';
 import { MoviesProvider } from './services/movies/Movies';
+import { FiltersProvider } from './services/filter/Filter';
 import Root from './pages/root/Root';
 import SingleMovie from './pages/single-movie/SingleMovie';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -13,7 +14,9 @@ function App() {
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <div className="app">
-          <Header/>
+          <FiltersProvider>
+            <Header/>
+          </FiltersProvider>
           <Route render={({location}) => {
             return (
             <TransitionGroup>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -7,31 +7,75 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles, fade } from '@material-ui/core/styles';
+import { useFilters } from '../../services/filter/Filter';
+import FiltreChoice from '../filtre-choice/FiltreChoice';
 
 export default function Header() {
 
+    const [loading, setLoading] = useState(true);
+    const [filterChoice, setFilterChoice] = useState('data-title');
+    const filterChoiceRef = useRef(filterChoice);
+    const filters = useFilters();
     const classes = useStyles();
+useEffect(() => {
+    if(filters.tags){
+        setLoading(false)
+        console.log(filters.filterName('bru'), filters.filterTag('bro'))
+    }
+    return () => {
+        console.log('cleanup')
+    };
+}, [filters]);
+
+useEffect(() => {
+    console.log('USEEFFECT REF')
+    filterChoiceRef.current = filterChoice
+}, [filterChoice]);
+
+// °°°°°°°°°°°°°°°°°°°°°
+// °°°°°°°°°°°°°°°°°°°°°
+    const handleChange = (filtre, event) => {
+        const inputname = event.target.value
+        console.log(filterChoiceRef.current)
+        filters.filterName(inputname, filtre)        
+    }
+// °°°°°°°°°°°°°°°°°°°°°
+// °°°°°°°°°°°°°°°°°°°°°
+    const cbChoice = newchoice => {
+        setFilterChoice(newchoice)       
+    }
+// °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
+// °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
     return (
         <AppBar position="fixed">
             <Toolbar>
                 <Grid container spacing={2}>
-                    <Grid item xs={7} sm={9}>
+                    <Grid item xs={7} sm={8}>
                         <Link to="/">
                             <Typography variant="h6">
                                 Logo
                             </Typography>
                         </Link>
                     </Grid> 
-                    <Grid item xs={5} sm={3}>
-                        <Grid  container className={classes.search}>
-                            <Grid item xs={3} lg={1} className={classes.searchIcon}>
-                                <SearchIcon />
+                    <Grid item xs={5} sm={4}>
+                        <Grid  container >
+                            <Grid item xs={4} className="flex-center">
+                                <FiltreChoice  cb={cbChoice}/>
                             </Grid>
-                            <Grid item xs={9}  lg={11}>
-                                <InputBase
-                                placeholder="Search…"
-                                />
-                            </Grid>
+                            <Grid item xs={8}>
+                                <Grid container className={classes.search}>
+                                    <Grid item xs={3} lg={1} className={classes.searchIcon}>
+                                        <SearchIcon/>
+                                    </Grid>
+                                    <Grid item xs={9}  lg={11}>
+                                        <InputBase
+                                        placeholder="Search..."
+                                        type="search"
+                                        onChange={(e) => handleChange(filterChoiceRef.current, e)}
+                                        />
+                                    </Grid>
+                                </Grid>
+                            </Grid>                   
                         </Grid>
                     </Grid> 
                 </Grid>

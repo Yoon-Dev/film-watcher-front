@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
-
+import { fetchData } from '../../utils/utils';
 export const moviesContext = createContext({
    movies: null
 });
@@ -18,7 +18,6 @@ const useData = () =>{
 
     useEffect(() => {
         fetchData('http://localhost:8000/api/movies').then(res => {
-            console.log('#3#', res)
             setMovies({...res}); 
         })
         return () => {
@@ -31,24 +30,6 @@ const useData = () =>{
 
 }
 
-// fetch fake-api data
-const fetchData = (url) => {
-    
-    let data =  fetch(url)
-                    .then( res => {
-                        console.log('#1#', res)
-                        return res.json()
-                    }) 
-                    .then( res => {
-                        console.log('#2#', res)
-                        return res
-
-                    })
-                    .catch(error => {
-                        alert(error)
-                })
-    return data;
-} 
 
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 // Provider
