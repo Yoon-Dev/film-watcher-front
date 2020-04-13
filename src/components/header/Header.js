@@ -15,19 +15,19 @@ export default function Header() {
         <AppBar position="fixed">
             <Toolbar>
                 <Grid container spacing={2}>
-                    <Grid item xs={9}>
+                    <Grid item xs={7} sm={9}>
                         <Link to="/">
                             <Typography variant="h6">
                                 Logo
                             </Typography>
                         </Link>
                     </Grid> 
-                    <Grid item xs={3}>
+                    <Grid item xs={5} sm={3}>
                         <Grid  container className={classes.search}>
-                            <Grid item xs={1} className={classes.searchIcon}>
+                            <Grid item xs={3} lg={1} className={classes.searchIcon}>
                                 <SearchIcon />
                             </Grid>
-                            <Grid item xs={11}>
+                            <Grid item xs={9}  lg={11}>
                                 <InputBase
                                 placeholder="Search…"
                                 />
@@ -62,5 +62,6 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+
     },
   }));

@@ -41,6 +41,22 @@ function App() {
     </ThemeProvider> 
   );
 }
-const theme = createMuiTheme();
+const theme = createMuiTheme({
+  overrides: {
+    MuiCardMedia: {
+      root: {
+        height: '30em'
+      }
+    },
+    MuiTypography: {
+      h6: {
+        fontWeight: 'bold'
+      },
+      h4: {
+        fontWeight: 'bold'
+      }
+    },
+  }
+});
 
 export default App;
