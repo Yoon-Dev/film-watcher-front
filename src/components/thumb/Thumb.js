@@ -12,25 +12,16 @@ import { store } from '../../redux/store';
 
 const Thumb = props => {
 
-    console.log(store.getState())
-    store.dispatch({ type: 'DECREMENT' })
-    console.log(store.getState())
-
     const [tags, setTags] = useState(null);
     const [read, setRead] = useState(false);
     useEffect(() => {
-        console.log(props.data)
         let tmptags = '';
         props.data.tags.forEach((v, i) => {
             if(i !== props.data.tags.length - 1){
                 tmptags += `${v.name}, ` 
             }else{
                 tmptags += v.name
-            }
-        if(props.data.id === 7){
-            store.dispatch({ type: 'ADDSINGLE', data: props.data})
-            console.log('OUI',store.getState())
-        }      
+            }     
         });
         setTags(tmptags)
     }, [props.data]);
@@ -41,7 +32,7 @@ const Thumb = props => {
         <Grid item xs={3} className={`p-cardmovie ${moviesclass}`} data-title={props.data.name} data-tags={tags} data-acteurs={props.data.acteurs} data-realisateur={props.data.realisateur}>
                 <Card>
                     <CardActionArea>
-                        <Link to={`/${props.data.id}`} className={classes.link}>
+                        <Link to={`/${props.data.id}`} className={classes.link} onClick={() => store.dispatch({ type: 'ADDSINGLE', data: props.data})}>
                             <CardMedia
                             image={imgdir+props.data.imageName}
                             src='img'

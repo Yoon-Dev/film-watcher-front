@@ -2,12 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { useMovies } from '../../services/movies/Movies';
 import Thumb from '../../components/thumb/Thumb';
 import Grid from '@material-ui/core/Grid';
+import { store } from '../../redux/store';
 
 const Root = props => {
     
     const movies = useMovies();
     const [loading, setLoading] = useState(true);
     const [thumbs, setThumbs] = useState(null);
+// °°°°°°°°°°°°°°°°°°°°°
+// °°°°°°°°°°°°°°°°°°°°°
+    useEffect(() => {
+        store.dispatch({type: "CLEAR"})
+    }, []);
+// °°°°°°°°°°°°°°°°°°°°°
+// °°°°°°°°°°°°°°°°°°°°°
     useEffect(() => {
         if(movies){
             setLoading(false)

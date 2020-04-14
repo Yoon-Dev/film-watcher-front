@@ -47,17 +47,27 @@
   display: flex !important;
   justify-content: flex-end !important;
 }
+.text-center {
+  text-align: center !important
+}
 /* END alignement */
 /* °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°° */
 /* ++++++++++++++++++++++++++++++++++++++++++++++ */
 /* MARGE/PADDING */
 /* °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°° */
 .mt-container{
-  margin: 6em 2em 6em 2em;
+  margin: 6em 2em 6em 2em !important;
 }
 .p-cardmovie{
-  padding: 2em;
+  padding: 2em !important;
 }
+.mt-single{
+  margin-top: 6em !important;
+}
+.pt-single{
+  padding: 2em !important;
+}
+
 /* END marge */
 /* °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°° */
 /* ++++++++++++++++++++++++++++++++++++++++++++++ */

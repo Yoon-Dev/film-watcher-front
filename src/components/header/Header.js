@@ -9,15 +9,25 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles, fade } from '@material-ui/core/styles';
 import { useFilters } from '../../services/filter/Filter';
 import FiltreChoice from '../filtre-choice/FiltreChoice';
+import { store } from '../../redux/store';
 
 export default function Header() {
 
     const [loading, setLoading] = useState(true);
     const [filterChoice, setFilterChoice] = useState('data-title');
+    const [filterActive, setFilterActive] = useState(true);
     const filterChoiceRef = useRef(filterChoice);
     const filters = useFilters();
     const classes = useStyles();
 useEffect(() => {
+    store.subscribe(() => {
+        if(store.getState()){
+            setFilterActive(false)
+        }else{
+            setFilterActive(true)
+        }
+    })
+    console.log(store.getState())
     if(filters.tags){
         setLoading(false)
     }
@@ -54,7 +64,7 @@ useEffect(() => {
                             </Typography>
                         </Link>
                     </Grid> 
-                    { loading ? "loading" :
+                    { loading ? "loading" : !filterActive ? null :
                     <Grid item xs={5} sm={4}>
                         <Grid  container >
                             <Grid item xs={4} className="flex-center">

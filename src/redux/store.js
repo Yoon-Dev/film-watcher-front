@@ -14,10 +14,9 @@ import { createStore } from 'redux'
 function counter(state = null, action, data) {
   switch (action.type) {
     case 'ADDSINGLE':
-        console.log('store : ', action.data)
       return state = action.data
-    case 'REMOVE':
-      return null
+    case 'CLEAR':
+      return state = null
     default:
       return state
   }
