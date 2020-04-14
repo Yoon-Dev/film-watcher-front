@@ -6,15 +6,20 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-
+import { store } from '../../redux/store';
 
 const Thumb = props => {
+
+    console.log(store.getState())
+    store.dispatch({ type: 'DECREMENT' })
+    console.log(store.getState())
+
     const [tags, setTags] = useState(null);
     const [read, setRead] = useState(false);
     useEffect(() => {
+        console.log(props.data)
         let tmptags = '';
         props.data.tags.forEach((v, i) => {
             if(i !== props.data.tags.length - 1){
@@ -22,10 +27,13 @@ const Thumb = props => {
             }else{
                 tmptags += v.name
             }
-            
+        if(props.data.id === 7){
+            store.dispatch({ type: 'ADDSINGLE', data: props.data})
+            console.log('OUI',store.getState())
+        }      
         });
         setTags(tmptags)
-    }, [props.data.tags]);
+    }, [props.data]);
     const classes = useStyles();
 //  °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°

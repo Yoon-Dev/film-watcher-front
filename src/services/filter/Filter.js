@@ -26,15 +26,12 @@ const useTags = () =>{
     useEffect(() => {
         setFilterTag(() => tagname => {
             const movies = document.querySelectorAll('.cardmovies')
-            console.log(movies)
             return movies;
         })
         setFilterName(() => (input, filter) => {
             
             const nodes = document.querySelectorAll(`.${moviesclass}`)
-            console.log(filter, input, nodes)
             nodes.forEach(e => {
-                console.log(filter, input)
                 if(filter && filter !== null && e.getAttribute(filter) && e.getAttribute(filter) !== null){
                     const title = e.getAttribute(filter).toLowerCase()
                     if(title.includes(input.toLowerCase())){

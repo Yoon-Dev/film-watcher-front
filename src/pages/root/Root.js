@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 
 const Root = props => {
     
-    const {movies} = useMovies();
+    const movies = useMovies();
     const [loading, setLoading] = useState(true);
     const [thumbs, setThumbs] = useState(null);
     useEffect(() => {

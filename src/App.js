@@ -26,14 +26,10 @@ function App() {
               classNames="fade"
               >
                 <Switch location={location}>
-                  <Route exact path="/">
-                    <MoviesProvider>
-                      <Root/>
-                    </MoviesProvider>          
-                  </Route>
-                  <Route path="/:id">
-                    <SingleMovie/>
-                  </Route>
+                <MoviesProvider>
+                  <Route exact path="/" component={Root}/>
+                  <Route path="/:id" component={SingleMovie}/>
+                </MoviesProvider>          
                 </Switch>  
               </CSSTransition>      
             </TransitionGroup>           

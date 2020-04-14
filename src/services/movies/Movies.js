@@ -1,5 +1,6 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import { fetchData } from '../../utils/utils';
+
 export const moviesContext = createContext({
    movies: null
 });
@@ -7,7 +8,7 @@ export const moviesContext = createContext({
 export const useMovies = () => {
 
     const movies = useContext(moviesContext);
-    return  { movies };
+    return  movies;
 
 }
 
@@ -15,7 +16,6 @@ export const useMovies = () => {
 const useData = () =>{
 
     const [movies, setMovies] = useState(null);
-
     useEffect(() => {
         fetchData('http://localhost:8000/api/movies').then(res => {
             setMovies({...res}); 
@@ -38,7 +38,6 @@ export const MoviesProvider = (props) => {
 
     const movies = useData()
     const { children } = props;
-
     return (
       <moviesContext.Provider value={movies}>
         {children}

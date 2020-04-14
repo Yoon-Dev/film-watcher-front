@@ -20,7 +20,6 @@ export default function Header() {
 useEffect(() => {
     if(filters.tags){
         setLoading(false)
-        console.log(filters.filterName('bru'), filters.filterTag('bro'))
     }
     return () => {
         console.log('cleanup')
@@ -28,7 +27,6 @@ useEffect(() => {
 }, [filters]);
 
 useEffect(() => {
-    console.log('USEEFFECT REF')
     filterChoiceRef.current = filterChoice
 }, [filterChoice]);
 
@@ -36,7 +34,6 @@ useEffect(() => {
 // °°°°°°°°°°°°°°°°°°°°°
     const handleChange = (filtre, event) => {
         const inputname = event.target.value
-        console.log(filterChoiceRef.current)
         filters.filterName(inputname, filtre)        
     }
 // °°°°°°°°°°°°°°°°°°°°°
@@ -57,6 +54,7 @@ useEffect(() => {
                             </Typography>
                         </Link>
                     </Grid> 
+                    { loading ? "loading" :
                     <Grid item xs={5} sm={4}>
                         <Grid  container >
                             <Grid item xs={4} className="flex-center">
@@ -78,6 +76,7 @@ useEffect(() => {
                             </Grid>                   
                         </Grid>
                     </Grid> 
+                    }
                 </Grid>
 
 
