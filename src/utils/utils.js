@@ -1,6 +1,6 @@
 export const imgdir = "http://localhost:8000/images/movies/";
 export const videodir = "http://localhost:8000/video/movies/";
-export const subtitledir = "http://localhost:8000/subtitle/movies/";
+export const subtitledir = "./subtitle/";
 
 export const moviesclass = "cardmovies";
 export const signal = new AbortController();

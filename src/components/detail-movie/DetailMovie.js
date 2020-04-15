@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { videodir, subtitledir } from '../../utils/utils';
+import { videodir, subtitledir, fetchData, signal } from '../../utils/utils';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -9,21 +9,24 @@ const DetailMovie = props => {
     console.log(props.data)
     const videoRef = useRef()
     const [tags, setTags] = useState(null);
+    const [subsrc, setSubsrc] = useState(null);
     useEffect(() => {
         console.log(videoRef.current)
         videoRef.current.addEventListener("loadedmetadata", () => {
             // track = this.addTextTrack("captions", "English", "en");
             console.log(subtitledir+props.data.subtitles[0].subtitleName)
-            let track = document.createElement("track");
-            track.kind = "captions";
-            track.label = props.data.subtitles[0].langue;
-            track.srclang = "en";
-            track.src = subtitledir+props.data.subtitles[0].subtitleName;
-            track.addEventListener("load", () => {
-                track.mode = "showing";
-                videoRef.current.textTracks[0].mode = "showing";
-             });
-            videoRef.current.appendChild(track)
+            props.data.subtitles.forEach((el) => {
+                console.log(el)
+                let track = document.createElement("track");
+                track.label = el.langue;
+                track.src = subtitledir+el.subtitleName;
+                track.addEventListener("load", () => {
+                    track.mode = "showing";
+                    videoRef.current.textTracks[0].mode = "showing";
+                 });
+                videoRef.current.appendChild(track)
+            })
+
          });
         let tmptags = '';
         props.data.tags.forEach((v, i) => {
