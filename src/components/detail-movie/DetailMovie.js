@@ -1,14 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { videodir } from '../../utils/utils';
+import React, { useState, useEffect, useRef } from 'react';
+import { videodir, subtitledir } from '../../utils/utils';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import './DetailMovie.css'
 const DetailMovie = props => {
-
+    console.log(props.data)
+    const videoRef = useRef()
     const [tags, setTags] = useState(null);
     useEffect(() => {
+        console.log(videoRef.current)
+        videoRef.current.addEventListener("loadedmetadata", () => {
+            // track = this.addTextTrack("captions", "English", "en");
+            console.log(subtitledir+props.data.subtitles[0].subtitleName)
+            let track = document.createElement("track");
+            track.kind = "captions";
+            track.label = props.data.subtitles[0].langue;
+            track.srclang = "en";
+            track.src = subtitledir+props.data.subtitles[0].subtitleName;
+            track.addEventListener("load", () => {
+                track.mode = "showing";
+                videoRef.current.textTracks[0].mode = "showing";
+             });
+            videoRef.current.appendChild(track)
+         });
         let tmptags = '';
         props.data.tags.forEach((v, i) => {
             if(i !== props.data.tags.length - 1){
@@ -18,10 +34,11 @@ const DetailMovie = props => {
             }     
         });
         setTags(tmptags)
-    }, [props.data.tags]);
-// °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
-// °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 
+    }, [props.data, props.data.subtitles]);
+
+// °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
+// °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
     return(
         <Grid item xs={12}>
             <Card>
@@ -78,9 +95,9 @@ const DetailMovie = props => {
                             </Typography>
                         </Grid>
                         <Grid item xs={9} className="flex-center">
-                            <video className="video" controls>
+                            <video className="video" controls preload="auto" ref={videoRef}>
                                 <source src={videodir+props.data.videoName} type="video/mp4"/>
-                            </video>
+                            </video> 
                         </Grid>
                     </Grid>
                 </CardContent>

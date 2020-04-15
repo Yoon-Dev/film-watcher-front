@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
-import { fetchData } from '../../utils/utils';
+import { fetchData, signal } from '../../utils/utils';
 import { moviesclass } from '../../utils/utils';
 
 
@@ -42,12 +42,12 @@ const useTags = () =>{
                 }
             })
         })
-        fetchData('http://localhost:8000/api/tags').then(res => {
+        fetchData('http://localhost:8000/api/tags', { signal: signal.signal }).then(res => {
             setTags({...res}); 
         })
         return () => {
             // cleanup
-            console.log('cleanup')
+            signal.abort();
         };
     }, []);
 

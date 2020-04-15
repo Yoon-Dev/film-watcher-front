@@ -1,8 +1,12 @@
 export const imgdir = "http://localhost:8000/images/movies/";
 export const videodir = "http://localhost:8000/video/movies/";
+export const subtitledir = "http://localhost:8000/subtitle/movies/";
+
 export const moviesclass = "cardmovies";
+export const signal = new AbortController();
+
 // fetch data
-export const fetchData = (url) => {
+export const fetchData = (url, signal) => {
     
     let data =  fetch(url)
                     .then( res => {
