@@ -4,7 +4,12 @@
     max-height: 50%;
 }
 
+.hidden-video{
+    opacity: 0 !important;
+}
+
 .video{
     width: 100% !important;
     height: 100% !important;
+    transition: opacity 1s ease;
 }

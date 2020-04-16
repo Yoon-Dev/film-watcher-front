@@ -18,24 +18,12 @@ function App() {
           <FiltersProvider>
             <Header/>
           </FiltersProvider>
-          <Route render={({location}) => {
-            return (
-            <TransitionGroup>
-              <CSSTransition
-              key={location.key}
-              timeout={350}
-              classNames="fade"
-              >
-                <Switch location={location}>
-                  <MoviesProvider>
-                    <Route exact path="/" component={Root}/>
-                    <Route path="/:id" component={SingleMovie}/>
-                  </MoviesProvider>          
-                </Switch>  
-              </CSSTransition>      
-            </TransitionGroup>           
-            )
-          }}/>
+          <Switch>
+              <MoviesProvider>
+                <Route exact path="/" component={Root}/>
+                <Route path="/:id" component={SingleMovie}/>     
+              </MoviesProvider>  
+          </Switch>  
         </div>
       </BrowserRouter>
     </ThemeProvider> 

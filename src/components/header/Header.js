@@ -11,6 +11,7 @@ import { useFilters } from '../../services/filter/Filter';
 import FiltreChoice from '../filtre-choice/FiltreChoice';
 import { store } from '../../redux/store';
 import './Header.css';
+import Loading from '../loading/Loading';
 
 export default function Header() {
 
@@ -21,28 +22,29 @@ export default function Header() {
     const filters = useFilters();
     const classes = useStyles();
     const matches = useMediaQuery('(min-width:1280px)');
-useEffect(() => {
-    console.log(matches)
-    store.subscribe(() => {
-        if(store.getState()){
-            setFilterActive(false)
-        }else{
-            setFilterActive(true)
+// °°°°°°°°°°°°°°°°°°°°°
+// °°°°°°°°°°°°°°°°°°°°°
+    useEffect(() => {
+        store.subscribe(() => {
+            if(store.getState()){
+                setFilterActive(false)
+            }else{
+                setFilterActive(true)
+            }
+        })
+        console.log(store.getState())
+        if(filters.tags){
+            setLoading(false)
         }
-    })
-    console.log(store.getState())
-    if(filters.tags){
-        setLoading(false)
-    }
-    return () => {
-        console.log('cleanup')
-    };
-}, [filters]);
-
-useEffect(() => {
-    filterChoiceRef.current = filterChoice
-}, [filterChoice]);
-
+        return () => {
+            console.log('cleanup')
+        };
+    }, [filters]);
+// °°°°°°°°°°°°°°°°°°°°°
+// °°°°°°°°°°°°°°°°°°°°°
+    useEffect(() => {
+        filterChoiceRef.current = filterChoice
+    }, [filterChoice]);
 // °°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°
     const handleChange = (filtre, event) => {
@@ -65,7 +67,7 @@ useEffect(() => {
                             <img src="./logo.gif" alt="logo" className="logo"/>
                         </Link>
                     </Grid> 
-                    { loading ? "loading" : !filterActive ? null :
+                    { loading ? <Loading big={false}/> : !filterActive ? null :
                     <Fragment>
                         <Grid item xs={5} lg={1} className={matches ? `flex-start` : `flex-end`}>
                             <FiltreChoice  cb={cbChoice}/>

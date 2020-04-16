@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { store } from '../../redux/store';
+import Fade from 'react-reveal/Fade';
 
 const Thumb = props => {
 
@@ -30,6 +31,7 @@ const Thumb = props => {
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
     return (
         <Grid item xs={12} lg={3}className={`p-cardmovie ${moviesclass}`} data-title={props.data.name} data-tags={tags} data-acteurs={props.data.acteurs} data-realisateur={props.data.realisateur}>
+            <Fade bottom cascade>
                 <Card>
                     <CardActionArea>
                         <Link to={`/${props.data.id}`} className={classes.link} onClick={() => store.dispatch({ type: 'ADDSINGLE', data: props.data})}>
@@ -100,6 +102,7 @@ const Thumb = props => {
                         </CardContent>
                     </CardActionArea>                
                 </Card>
+            </Fade>
         </Grid>
   );
 }

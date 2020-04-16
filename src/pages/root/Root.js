@@ -3,6 +3,7 @@ import { useMovies } from '../../services/movies/Movies';
 import Thumb from '../../components/thumb/Thumb';
 import Grid from '@material-ui/core/Grid';
 import { store } from '../../redux/store';
+import Loading from '../../components/loading/Loading';
 
 const Root = props => {
     
@@ -39,7 +40,7 @@ const Root = props => {
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°   
     return (
         <Grid container className="mt-container">
-           { loading ? "<Loader/>" : thumbs }
+           { loading ? <Loading big={true}/> : thumbs }
         </Grid>
   );
 }

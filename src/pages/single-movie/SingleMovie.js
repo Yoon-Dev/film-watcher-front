@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import DetailMovie from '../../components/detail-movie/DetailMovie';
 import { store } from '../../redux/store';
+import Loading from '../../components/loading/Loading';
 
 const SingleMovie = props => {
 
@@ -30,7 +31,7 @@ const createDetailMovie = movie => {
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
   return (
         <Grid container className="mt-single pt-single">
-          { loading ? "loading" : detailMovie }
+          { loading ? <Loading big={true}/> : detailMovie }
         </Grid>
   );
 }
