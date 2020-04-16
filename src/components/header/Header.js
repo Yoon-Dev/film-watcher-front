@@ -12,6 +12,7 @@ import FiltreChoice from '../filtre-choice/FiltreChoice';
 import { store } from '../../redux/store';
 import './Header.css';
 import Loading from '../loading/Loading';
+import EndAdornment from '../end-adornment/EndAdornment';
 
 export default function Header() {
 
@@ -19,6 +20,9 @@ export default function Header() {
     const [filterChoice, setFilterChoice] = useState('data-title');
     const [filterActive, setFilterActive] = useState(true);
     const filterChoiceRef = useRef(filterChoice);
+    const [values, setValues] = useState({
+        input: ""
+    });    
     const filters = useFilters();
     const classes = useStyles();
     const matches = useMediaQuery('(min-width:1280px)');
@@ -47,11 +51,22 @@ export default function Header() {
     }, [filterChoice]);
 // °°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°
-    const handleChange = (filtre, event) => {
-        const inputname = event.target.value
+    const handleChange = (filtre, event, prop) => {
+        let inputname = '';
+        if(event){
+            inputname = event.target.value
+            setValues({ ...values, [prop]: event.target.value });
+        }
+
         filters.filterName(inputname, filtre)        
     }
 // °°°°°°°°°°°°°°°°°°°°°
+// °°°°°°°°°°°°°°°°°°°°°
+    const handleClick = () => {
+        setValues({ input: "" });
+        handleChange(filterChoiceRef.current, null, 'input')
+    };
+//   °°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°
     const cbChoice = newchoice => {
         setFilterChoice(newchoice)       
@@ -80,8 +95,10 @@ export default function Header() {
                                 <div>
                                     <InputBase
                                     placeholder="Search..."
-                                    type="search"
-                                    onChange={(e) => handleChange(filterChoiceRef.current, e)}
+                                    type="text"
+                                    value={values.input}
+                                    onChange={(e) => handleChange(filterChoiceRef.current, e, 'input')}
+                                    endAdornment={<EndAdornment click={() => handleClick()} value={values}/>}
                                     autoFocus={true}
                                     size="large"
                                     />
