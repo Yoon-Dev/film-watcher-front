@@ -11,6 +11,7 @@ import { grey } from '@material-ui/core/colors/grey';
 import './App.css';
 
 function App() {
+  console.log(process.env)
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
