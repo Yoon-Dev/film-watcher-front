@@ -29,7 +29,7 @@ const Thumb = props => {
 //  °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
     return (
-        <Grid item xs={3} className={`p-cardmovie ${moviesclass}`} data-title={props.data.name} data-tags={tags} data-acteurs={props.data.acteurs} data-realisateur={props.data.realisateur}>
+        <Grid item xs={12} lg={3}className={`p-cardmovie ${moviesclass}`} data-title={props.data.name} data-tags={tags} data-acteurs={props.data.acteurs} data-realisateur={props.data.realisateur}>
                 <Card>
                     <CardActionArea>
                         <Link to={`/${props.data.id}`} className={classes.link} onClick={() => store.dispatch({ type: 'ADDSINGLE', data: props.data})}>

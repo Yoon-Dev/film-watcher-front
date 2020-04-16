@@ -1,15 +1,16 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles, fade } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useFilters } from '../../services/filter/Filter';
 import FiltreChoice from '../filtre-choice/FiltreChoice';
 import { store } from '../../redux/store';
+import './Header.css';
 
 export default function Header() {
 
@@ -19,7 +20,9 @@ export default function Header() {
     const filterChoiceRef = useRef(filterChoice);
     const filters = useFilters();
     const classes = useStyles();
+    const matches = useMediaQuery('(min-width:1280px)');
 useEffect(() => {
+    console.log(matches)
     store.subscribe(() => {
         if(store.getState()){
             setFilterActive(false)
@@ -56,36 +59,34 @@ useEffect(() => {
     return (
         <AppBar position="fixed">
             <Toolbar>
-                <Grid container spacing={2}>
-                    <Grid item xs={7} sm={8}>
+                <Grid container spacing={2} alignItems="center">
+                    <Grid item xs={1}>
                         <Link to="/">
-                            <Typography variant="h6">
-                                Logo
-                            </Typography>
+                            <img src="./logo.gif" alt="logo" className="logo"/>
                         </Link>
                     </Grid> 
                     { loading ? "loading" : !filterActive ? null :
-                    <Grid item xs={5} sm={4}>
-                        <Grid  container >
-                            <Grid item xs={4} className="flex-center">
-                                <FiltreChoice  cb={cbChoice}/>
-                            </Grid>
-                            <Grid item xs={8}>
-                                <Grid container className={classes.search}>
-                                    <Grid item xs={3} lg={1} className={classes.searchIcon}>
-                                        <SearchIcon/>
-                                    </Grid>
-                                    <Grid item xs={9}  lg={11}>
-                                        <InputBase
-                                        placeholder="Search..."
-                                        type="search"
-                                        onChange={(e) => handleChange(filterChoiceRef.current, e)}
-                                        />
-                                    </Grid>
-                                </Grid>
-                            </Grid>                   
+                    <Fragment>
+                        <Grid item xs={5} lg={1} className={matches ? `flex-start` : `flex-end`}>
+                            <FiltreChoice  cb={cbChoice}/>
                         </Grid>
-                    </Grid> 
+                        <Grid item xs={6} lg={10} className="flex-start">
+                            <div className={classes.search}>
+                                <div className={classes.searchIcon}>
+                                    <SearchIcon/>
+                                </div>
+                                <div>
+                                    <InputBase
+                                    placeholder="Search..."
+                                    type="search"
+                                    onChange={(e) => handleChange(filterChoiceRef.current, e)}
+                                    autoFocus={true}
+                                    size="large"
+                                    />
+                                </div>
+                            </div>
+                        </Grid> 
+                    </Fragment>      
                     }
                 </Grid>
 
@@ -103,18 +104,16 @@ const useStyles = makeStyles((theme) => ({
       '&:hover': {
         backgroundColor: fade(theme.palette.common.white, 0.25),
       },
-    //   marginRight: theme.spacing(2),
-    //   marginLeft: 0,
-    //   width: '100%',
-    //   [theme.breakpoints.up('sm')]: {
-    //     marginLeft: theme.spacing(3),
-    //     width: 'auto',
-    //   },
+      '&:focus': {
+        backgroundColor: fade(theme.palette.common.white, 0.25),
+      },
+      display: 'inline-flex',
+      padding: '.6em',
+      boxShadow: '7px 7px 14px #575757, -7px -7px 14px #6b6b6b;',
     },
     searchIcon: {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-
     },
   }));
