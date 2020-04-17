@@ -7,8 +7,7 @@ const FiltreChoice = props => {
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [cosmetique, setCosmetique] = useState('movie');
-    const handleClick = (event) => {
-        
+    const handleClick = (event) => {   
         setAnchorEl(event.currentTarget);
     };
     
@@ -24,17 +23,16 @@ const FiltreChoice = props => {
         <div>
             <Button onClick={handleClick} color="inherit">{cosmetique}</Button>
             <Menu
-            id="simple-menu"
             anchorEl={anchorEl}
             keepMounted
             open={Boolean(anchorEl)}
             onClose={() => handleClose(false)}
             >
-            <MenuItem onClick={() => handleClose(true, 'data-title', 'movies')}>Movies</MenuItem>
-            <MenuItem onClick={() => handleClose(true, 'data-tags', 'tags')}>Tags</MenuItem>
-            <MenuItem onClick={() => handleClose(true, 'data-acteurs', 'acteurs')}>Acteurs</MenuItem>
-            <MenuItem onClick={() => handleClose(true, 'data-realisateur', 'realisateur')}>Realisateur</MenuItem>
-        </Menu>
+                <MenuItem onClick={() => handleClose(true, 'data-title', 'movies')}>Movies</MenuItem>
+                <MenuItem onClick={() => handleClose(true, 'data-tags', 'tags')}>Tags</MenuItem>
+                <MenuItem onClick={() => handleClose(true, 'data-acteurs', 'acteurs')}>Acteurs</MenuItem>
+                <MenuItem onClick={() => handleClose(true, 'data-realisateur', 'realisateur')}>Realisateur</MenuItem>
+            </Menu>
         </div>
 
     )

@@ -6,29 +6,34 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import './DetailMovie.css'
 import Fade from 'react-reveal/Fade';
+import MovieChoice from '../movie-choice/MovieChoice';
 
 
 const DetailMovie = props => {
-    console.log(props.data)
     const videoRef = useRef()
     const [tags, setTags] = useState(null);
+    const [videosrc, setVideosrc] = useState(videodir+props.data.videos[0].videoName);
+    const [loaded, setLoaded] = useState(false);
+    const loadedRef = useRef(loaded)
     useEffect(() => {
-        console.log(videoRef.current)
+        console.log('bru')
         videoRef.current.addEventListener("loadedmetadata", () => {
-            // track = this.addTextTrack("captions", "English", "en");
-            props.data.subtitles.forEach((el) => {
-                if(el && el !== undefined && videoRef.current){
-                    let track = document.createElement("track");
-                    track.label = el.langue;
-                    track.src = subtitledir+el.subtitleName;
-                    track.addEventListener("load", () => {
-                        track.mode = "showing";
-                        videoRef.current.textTracks[0].mode = "showing";
-                     });
-                    videoRef.current.appendChild(track)
-                }
-            })
-            videoRef.current.classList.remove('hidden-video')
+            if(!loadedRef.current){
+                props.data.subtitles.forEach((el) => {
+                    if(el && el !== undefined && videoRef.current){
+                        let track = document.createElement("track");
+                        track.label = el.langue;
+                        track.src = subtitledir+el.subtitleName;
+                        track.addEventListener("load", () => {
+                            track.mode = "showing";
+                            videoRef.current.textTracks[0].mode = "showing";
+                        });
+                        videoRef.current.appendChild(track)
+                    }
+                })
+                setLoaded(true)
+                videoRef.current.classList.remove('hidden-video')
+            }
          });
         let tmptags = '';
         props.data.tags.forEach((v, i) => {
@@ -40,8 +45,18 @@ const DetailMovie = props => {
         });
         setTags(tmptags)
 
-    }, [props.data, props.data.subtitles]);
-
+    }, [props.data.subtitles, props.data.tags]);
+// °°°°°°°°°°°°°°°°°°°°°
+// °°°°°°°°°°°°°°°°°°°°°
+    useEffect(() => {
+        loadedRef.current  = loaded
+    }, [loaded]);
+// °°°°°°°°°°°°°°°°°°°°°
+// °°°°°°°°°°°°°°°°°°°°°
+    const handleSrcChange = newsrc => {
+        setVideosrc(newsrc)
+        videoRef.current.load()
+    }
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
     return(
@@ -101,9 +116,17 @@ const DetailMovie = props => {
                                 </Typography>
                             </Grid>
                             <Grid item xs={9} className="flex-center">
-                                <video className="video hidden-video" controls preload="auto" ref={videoRef}>
-                                    <source src={videodir+props.data.videoName} type="video/mp4"/>
-                                </video> 
+                                <Grid container spacing={1}>
+                                    <Grid item xs={12} className="flex-center">
+                                        <MovieChoice videos={props.data.videos} videoChange={handleSrcChange}/>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <video className="video hidden-video" controls preload="auto" ref={videoRef}>
+                                            <source src={videosrc} type="video/mp4"/>
+                                        </video> 
+                                    </Grid>
+                                </Grid>
+
                             </Grid>
                         </Grid>
                     </CardContent>

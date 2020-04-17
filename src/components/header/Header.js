@@ -36,13 +36,9 @@ export default function Header() {
                 setFilterActive(true)
             }
         })
-        console.log(store.getState())
         if(filters.tags){
             setLoading(false)
         }
-        return () => {
-            console.log('cleanup')
-        };
     }, [filters]);
 // °°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°

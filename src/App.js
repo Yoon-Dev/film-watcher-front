@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { CSSTransition, TransitionGroup, } from 'react-transition-group';
 import Header from './components/header/Header';
 import { MoviesProvider } from './services/movies/Movies';
 import { FiltersProvider } from './services/filter/Filter';

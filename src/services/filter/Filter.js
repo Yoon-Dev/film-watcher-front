@@ -29,7 +29,6 @@ const useTags = () =>{
             return movies;
         })
         setFilterName(() => (input, filter) => {
-            console.log(input)
             const nodes = document.querySelectorAll(`.${moviesclass}`)
             nodes.forEach(e => {
                 if(filter && filter !== null && e.getAttribute(filter) && e.getAttribute(filter) !== null){

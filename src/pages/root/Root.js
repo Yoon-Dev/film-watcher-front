@@ -22,9 +22,6 @@ const Root = props => {
             setLoading(false)
             setThumbs(createThumbs(movies))
         }
-        return () => {
-            console.log("cleanup");
-        };
     }, [movies]);
 // °°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°

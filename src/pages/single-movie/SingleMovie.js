@@ -16,9 +16,6 @@ const SingleMovie = props => {
       setLoading(false)
       setDetailMovie(createDetailMovie(store.getState()))
     }
-    return () => {
-      console.log('cleanup')
-    };
   }, [loading]);
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 // Create News
