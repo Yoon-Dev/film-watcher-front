@@ -65,62 +65,62 @@ const DetailMovie = props => {
                 <Card>
                     <CardContent>
                         <Grid container spacing={1} alignItems="center">
-                            <Grid item xs={2} className="flex-center">
+                            <Grid item lg={2} xs={12}className="flex-center">
                                 <Typography gutterBottom variant="h4" component="h2" className="movies-title flex-center text-center">
                                     {props.data.name}
                                 </Typography>
                             </Grid>
-                            <Grid item xs={1} className="flex-center detail-info">
+                            <Grid item lg={1} xs={12}className="flex-center detail-info">
                                 <Typography variant="overline" color="textSecondary" component="p">
                                     ACTEURS
                                 </Typography>
                             </Grid>
-                            <Grid item xs={2} className="flex-center">
+                            <Grid item lg={2} xs={12}className="flex-center">
                                 <Typography variant="h6" component="p" className="text-center">
                                     {props.data.acteurs}
                                 </Typography>
                             </Grid>
-                            <Grid item xs={1} className="flex-center detail-info">
+                            <Grid item lg={1} xs={12}className="flex-center detail-info">
                                 <Typography variant="overline" color="textSecondary" component="p">
                                     REALISATEURS
                                 </Typography>
                             </Grid>
-                            <Grid item xs={2} className="flex-center">
+                            <Grid item lg={2} xs={12}className="flex-center">
                                 <Typography variant="h6" component="p" className="text-center">
                                     {props.data.realisateur}
                                 </Typography>
                             </Grid>
-                            <Grid item xs={1} className="flex-center detail-info">
+                            <Grid item lg={1} xs={12}className="flex-center detail-info">
                                 <Typography variant="overline" color="textSecondary" component="p">
                                     TAGS
                                 </Typography>
                             </Grid>
-                            <Grid item xs={1} className="flex-center">
+                            <Grid item lg={1} xs={12}className="flex-center">
                                 <Typography variant="h6" component="p">
                                     {tags}
                                 </Typography>
                             </Grid>
-                            <Grid item xs={1} className="flex-center detail-info">
+                            <Grid item lg={1} xs={12}className="flex-center detail-info">
                                 <Typography variant="overline" color="textSecondary" component="p">
                                     RUNNING TIME
                                 </Typography>
                             </Grid>
-                            <Grid item xs={1} className="flex-center">
+                            <Grid item lg={1} xs={12}className="flex-center">
                                 <Typography variant="h6" component="p">
                                     {props.data.duree}
                                 </Typography>
                             </Grid>
-                            <Grid item xs={3} className="flex-center pt-single">
+                            <Grid item lg={3} xs={12}className="flex-center pt-single">
                                 <Typography variant="body1" color="textPrimary" component="p">
                                     {props.data.resume}
                                 </Typography>
                             </Grid>
-                            <Grid item xs={9} className="flex-center">
+                            <Grid item lg={9} xs={12}className="flex-center">
                                 <Grid container spacing={1}>
-                                    <Grid item xs={12} className="flex-center">
+                                    <Grid item lg={12} className="flex-center">
                                         <MovieChoice videos={props.data.videos} videoChange={handleSrcChange}/>
                                     </Grid>
-                                    <Grid item xs={12}>
+                                    <Grid item lg={12}>
                                         <video className="video hidden-video" controls preload="auto" ref={videoRef}>
                                             <source src={videosrc} type="video/mp4"/>
                                         </video> 

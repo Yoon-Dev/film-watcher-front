@@ -34,7 +34,7 @@ const MovieChoice = props => {
     }else{
         return(
             <div>
-            <Button onClick={handleClick} color="inherit">
+            <Button onClick={handleClick} color="inherit" variant="outlined">
                 <Typography variant="h6" component="p">
                     {cosmetique}
                 </Typography>

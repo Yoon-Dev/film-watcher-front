@@ -10,6 +10,13 @@
 
 .video{
     width: 100% !important;
-    height: 100% !important;
+    height: 300px !important;
     transition: opacity 1s ease;
+    background-color: black;
 }
+
+@media (min-width: 768px) {
+    .video{
+        height: 600px !important;
+    }
+  }
