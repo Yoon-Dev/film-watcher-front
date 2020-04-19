@@ -1,6 +1,7 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import { fetchData, signal } from '../../utils/utils';
-import { moviesclass } from '../../utils/utils';
+import { moviesclass, seriesclass } from '../../utils/utils';
+import { useLocation } from 'react-router-dom';
 
 
 export const filtersContext = createContext({
@@ -19,7 +20,7 @@ export const filtersContext = createContext({
 // hook du composant FilterProvider
 // recupere tout les tags
 const useTags = () =>{
-
+    const {pathname} = useLocation() 
     const [tags, setTags] = useState(null);
     const [filterTag, setFilterTag] = useState(null);
     const [filterName, setFilterName] = useState(null);
@@ -29,10 +30,11 @@ const useTags = () =>{
             return movies;
         })
         setFilterName(() => (input, filter) => {
-            const nodes = document.querySelectorAll(`.${moviesclass}`)
+            const nodes = document.querySelectorAll(`.${pathname === "/" ? moviesclass : seriesclass}`)
             nodes.forEach(e => {
                 if(filter && filter !== null && e.getAttribute(filter) && e.getAttribute(filter) !== null){
                     const title = e.getAttribute(filter).toLowerCase()
+                    console.log(title)
                     if(title.includes(input.toLowerCase())){
                         e.classList.remove('hidden')   
                     }else{
@@ -48,7 +50,7 @@ const useTags = () =>{
             // cleanup
             signal.abort();
         };
-    }, []);
+    }, [pathname]);
 
     return {tags, filterTag, filterName};
 

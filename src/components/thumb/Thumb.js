@@ -27,13 +27,13 @@ const Thumb = props => {
                 });
                 setTags(tmptags)
             }
-        }, [props.data]);
+        }, [props.data, props.movie]);
 
     const classes = useStyles();
 //  °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
     return (
-        <Grid item xs={12} lg={3}className={`p-cardmovie ${props.movie ? moviesclass: seriesclass}`} data-title={props.data.name} data-tags={props.movie ? tags : props.data.type} data-acteurs={props.movie ? props.data.acteurs : props.data.Chaine} data-realisateur={props.data.realisateur}>
+        <Grid item xs={12} lg={3}className={`p-cardmovie ${props.movie ? moviesclass: seriesclass}`} data-title={props.data.name} data-tags={props.movie ? tags : props.data.type} data-acteurs={props.movie ? props.data.acteurs : props.data.Chaine} data-realisateur={props.movie ? props.data.realisateur : props.data.Realisateur}>
             <Fade bottom cascade>
                 <Card>
                     <CardActionArea>
