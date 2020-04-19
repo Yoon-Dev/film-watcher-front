@@ -4,7 +4,6 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import './DetailMovie.css'
 import Fade from 'react-reveal/Fade';
 import MovieChoice from '../movie-choice/MovieChoice';
 

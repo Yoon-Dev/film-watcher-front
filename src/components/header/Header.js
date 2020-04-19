@@ -13,9 +13,12 @@ import './Header.css';
 import Loading from '../loading/Loading';
 import EndAdornment from '../end-adornment/EndAdornment';
 import Logo from '../logo/Logo';
+import { useLocation } from 'react-router-dom';
+
 
 export default function Header() {
 
+    const {pathname} = useLocation() 
     const [loading, setLoading] = useState(true);
     const [filterChoice, setFilterChoice] = useState('data-title');
     const [filterActive, setFilterActive] = useState(true);
@@ -36,7 +39,7 @@ export default function Header() {
                 setFilterActive(true)
             }
         })
-        if(filters.tags){
+        if(filters.tags && !pathname.includes("detail")){
             setLoading(false)
         }
     }, [filters]);
@@ -122,6 +125,7 @@ const useStyles = makeStyles((theme) => ({
       display: 'inline-flex',
       padding: '.6em',
       boxShadow: '7px 7px 14px #575757, -7px -7px 14px #6b6b6b;',
+      transition: 'all .3s ease',
     },
     searchIcon: {
         display: "flex",

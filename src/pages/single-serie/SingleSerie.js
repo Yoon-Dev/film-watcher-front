@@ -1,23 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
-import DetailMovie from '../../components/detail-movie/DetailMovie';
+import DetailSerie from '../../components/detail-serie/DetailSerie';
 import { store } from '../../redux/store';
 import Loading from '../../components/loading/Loading';
 import RedirectAll from "../../components/redirect-all/RedirectAll";
-const SingleMovie = props => {
+
+const SingleSerie = props => {
   const [loading, setLoading] = useState(true);
-  const [detailMovie, setDetailMovie] = useState(null);
+  const [detailSerie, setDetailSerie] = useState(null);
 // °°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°
 
   useEffect(() => {
     if(store.getState() !== null){
       setLoading(false)
-      setDetailMovie(createDetailMovie(store.getState()))
+      setDetailSerie(createDetailSerie(store.getState()))
     }else{
       setTimeout(() => {
         if(store.getState() === null){
-          setDetailMovie(createRedirectAll("/"))
+          setDetailSerie(createRedirectAll("/series"))
         }     
       },1000);  
     }
@@ -25,9 +26,9 @@ const SingleMovie = props => {
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 // Create News
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
-const createDetailMovie = movie => {
-  const detailmovie = <DetailMovie key={movie.id} data={movie}/>;
-  return detailmovie;   
+const createDetailSerie = Serie => {
+  const detailSerie = <DetailSerie key={Serie.id} data={Serie}/>;
+  return detailSerie;   
 }
 // °°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°
@@ -39,10 +40,10 @@ const createRedirectAll = url => {
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
   return (
         <Grid container className="mt-single pt-single">
-          { loading ? <Loading big={true}/> : detailMovie }
+          { loading ? <Loading big={true}/> : detailSerie }
         </Grid>
   );
 }
 
-export default SingleMovie;
+export default SingleSerie;
 

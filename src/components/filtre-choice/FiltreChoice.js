@@ -6,7 +6,6 @@ import { useLocation } from 'react-router-dom';
 
 const FiltreChoice = props => {
     const {pathname} = useLocation() 
-    console.log(pathname)
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [cosmetique, setCosmetique] = useState('titre');
     const handleClick = (event) => {   

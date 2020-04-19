@@ -34,7 +34,6 @@ const useTags = () =>{
             nodes.forEach(e => {
                 if(filter && filter !== null && e.getAttribute(filter) && e.getAttribute(filter) !== null){
                     const title = e.getAttribute(filter).toLowerCase()
-                    console.log(title)
                     if(title.includes(input.toLowerCase())){
                         e.classList.remove('hidden')   
                     }else{

@@ -12,7 +12,6 @@ import { store } from '../../redux/store';
 import Fade from 'react-reveal/Fade';
 
 const ThumbsSeries = props => {
-    console.log(props)
     const classes = useStyles();
     return(
         <Grid item xs={12} lg={3}className={`p-cardmovie ${seriesclass}`} data-title={props.data.name} data-type={props.data.type} data-chaine={props.data.Chaine} data-realisateur={props.data.Realisateur}>

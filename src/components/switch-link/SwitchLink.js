@@ -8,13 +8,13 @@ const SwitchLink = () => {
     const [toRedirect, setToRedirect] = useState("/series");
     const toRedirectRef = useRef(toRedirect)
     const [state, setState] = useState({
-        checkedA: pathname === "/" ? false : true,
-        checkedB: pathname === "/" ? true : false
+        checkedA: pathname.includes("/series") ? true : false,
+        checkedB: pathname.includes("/series") ? false : true
     });
 // °°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°
     useEffect(() => {
-        if(pathname !== "/"){
+        if(pathname.includes("/series")){
             setToRedirect("/")
         }else{
             setToRedirect("/series")

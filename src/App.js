@@ -5,6 +5,7 @@ import { FiltersProvider } from './services/filter/Filter';
 import NewRoot from './pages/new-root/NewRoot';
 import NewRootSeries from './pages/new-root-series/NewRootSeries';
 import SingleMovie from './pages/single-movie/SingleMovie';
+import SingleSerie from './pages/single-serie/SingleSerie';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import './App.css';
 
@@ -18,7 +19,8 @@ function App() {
             <Header/>
           </FiltersProvider>
           <Switch>
-              <Route path="/detail/:id" component={SingleMovie}/> 
+              <Route exact path="/detail/:id" component={SingleMovie}/> 
+              <Route path="/detail/series/:id" component={SingleSerie}/> 
               <Route path="/series" component={NewRootSeries}/>
               <Route exact path="/" component={NewRoot}/>
           </Switch>  
