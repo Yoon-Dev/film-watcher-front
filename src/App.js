@@ -6,7 +6,6 @@ import NewRoot from './pages/new-root/NewRoot';
 import NewRootSeries from './pages/new-root-series/NewRootSeries';
 import SingleMovie from './pages/single-movie/SingleMovie';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import { grey } from '@material-ui/core/colors/grey';
 import './App.css';
 
 function App() {
@@ -36,7 +35,11 @@ const theme = createMuiTheme({
       light: "#f5f5f5",
       dark: "#212121"
     },
-    secondary: grey
+    secondary: {
+      main: "#bbdefb",
+      light: "#e3f2fd",
+      dark: "#0d47a1"
+    },
   },
   overrides: {
     MuiCardMedia: {

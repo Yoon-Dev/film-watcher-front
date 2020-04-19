@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef, Fragment } from 'react';
-import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import SearchIcon from '@material-ui/icons/Search';
@@ -13,6 +12,7 @@ import { store } from '../../redux/store';
 import './Header.css';
 import Loading from '../loading/Loading';
 import EndAdornment from '../end-adornment/EndAdornment';
+import Logo from '../logo/Logo';
 
 export default function Header() {
 
@@ -74,14 +74,10 @@ export default function Header() {
         <AppBar position="fixed">
             <Toolbar>
                 <Grid container spacing={2} alignItems="center">
-                    <Grid item xs={1}>
-                        <Link to="/">
-                            <img src="./logo.gif" alt="logo" className="logo"/>
-                        </Link>
-                    </Grid> 
+                    <Logo filterActive={filterActive} loading={loading}/>
                     { loading ? <Loading big={false}/> : !filterActive ? null :
-                    <Fragment>
-                        <Grid item xs={5} lg={1} className={matches ? `flex-start` : `flex-end`}>
+                    <Fragment>            
+                        <Grid item xs={5} lg={1} className={matches ? `flex-center` : `flex-end`}>
                             <FiltreChoice  cb={cbChoice}/>
                         </Grid>
                         <Grid item xs={6} lg={10} className="flex-start">
