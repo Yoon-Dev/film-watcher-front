@@ -5,7 +5,7 @@ import { store } from '../../redux/store';
 import Loading from '../../components/loading/Loading';
 
 const SingleMovie = props => {
-
+  console.log("LOADED")
   const [loading, setLoading] = useState(true);
   const [detailMovie, setDetailMovie] = useState(null);
 // °°°°°°°°°°°°°°°°°°°°°

@@ -16,7 +16,6 @@ const DetailMovie = props => {
     const [loaded, setLoaded] = useState(false);
     const loadedRef = useRef(loaded)
     useEffect(() => {
-        console.log('bru')
         videoRef.current.addEventListener("loadedmetadata", () => {
             if(!loadedRef.current){
                 props.data.subtitles.forEach((el) => {

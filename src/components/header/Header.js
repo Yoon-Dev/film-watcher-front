@@ -69,6 +69,7 @@ export default function Header() {
     }
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
+// Crée un composant LOGO qui permet de choisir entre FILM et SERIE, rester appyer dessus permet de changer de composant PAGE (ROOT/ROOTSERIES)
     return (
         <AppBar position="fixed">
             <Toolbar>

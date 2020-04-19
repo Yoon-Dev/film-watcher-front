@@ -1,22 +1,22 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import { fetchData, signal } from '../../utils/utils';
-export const moviesContext = createContext({
-   movies: null
+export const seriesContext = createContext({
+   series: null
 });
 
-export const useMovies = () => {
+export const useSeries = () => {
 
-    const movies = useContext(moviesContext);
-    return  movies;
+    const series = useContext(seriesContext);
+    return  series;
 
 }
 
-// hook du composant MoviesProvider
+// hook du composant SeriesProvider
 const useData = () =>{
-    const [movies, setMovies] = useState(null);
+    const [series, setSeries] = useState(null);
     useEffect(() => {
-        fetchData('http://localhost:8000/api/movies', { signal: signal.signal }).then(res => {
-            setMovies({...res}); 
+        fetchData('http://localhost:8000/api/series', { signal: signal.signal }).then(res => {
+            setSeries({...res}); 
         })
         return () => {
             // cleanup
@@ -24,7 +24,7 @@ const useData = () =>{
         };
     }, []);
 
-    return movies;
+    return series;
 
 }
 
@@ -32,12 +32,12 @@ const useData = () =>{
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 // Provider
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
-export const MoviesProvider = (props) => {
-    const movies = useData()
+export const SeriesProvider = (props) => {
+    const series = useData()
     const { children } = props;
     return (
-      <moviesContext.Provider value={movies}>
+      <seriesContext.Provider value={series}>
         {children}
-      </moviesContext.Provider>
+      </seriesContext.Provider>
     );
 } 

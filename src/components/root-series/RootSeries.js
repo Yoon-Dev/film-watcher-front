@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { useMovies } from '../../services/movies/Movies';
-import Thumb from '../../components/thumb/Thumb';
-import Grid from '@material-ui/core/Grid';
+import React, { useState, useEffect } from 'react';
+import { useSeries } from '../../services/series/Series';
 import { store } from '../../redux/store';
-import Loading from '../../components/loading/Loading';
+import Loading from '../loading/Loading';
+import Grid from '@material-ui/core/Grid';
+import Thumb from '../thumb/Thumb';
 
-const Root = props => {
-    
-    const movies = useMovies();
+
+const RootSeries = props => {
+    // can use Thumbseries if usefull
+    const series = useSeries();
     const [loading, setLoading] = useState(true);
-    const [thumbs, setThumbs] = useState(null);
+    const [thumbsSeries, setThumbsSeries] = useState(null);
 // °°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°
     useEffect(() => {
@@ -18,28 +19,28 @@ const Root = props => {
 // °°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°
     useEffect(() => {
-        if(movies){
+        if(series){
             setLoading(false)
-            setThumbs(createThumbs(movies))
+            setThumbsSeries(createThumbsSeries(series))
         }
-    }, [movies]);
+    }, [series]);
 // °°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°
-    const createThumbs = data => {
+    const createThumbsSeries = data => {
         const thumbs = Object.keys(data).map( item => 
             
-            <Thumb key={data[item].id} data={data[item]}/>
+            <Thumb key={data[item].id} data={data[item]} movie={false}/>
             
         );
         return thumbs;   
     }
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°   
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°   
-    return (
+    return(
         <Grid container className="mt-container">
-           { loading ? <Loading big={true}/> : thumbs }
+            { loading ? <Loading big={true}/> : thumbsSeries }
         </Grid>
-  );
+    )
 }
 
-export default Root;
+export default RootSeries;

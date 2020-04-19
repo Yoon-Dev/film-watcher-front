@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Header from './components/header/Header';
-import { MoviesProvider } from './services/movies/Movies';
 import { FiltersProvider } from './services/filter/Filter';
-import Root from './pages/root/Root';
+import NewRoot from './pages/new-root/NewRoot';
+import NewRootSeries from './pages/new-root-series/NewRootSeries';
 import SingleMovie from './pages/single-movie/SingleMovie';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { grey } from '@material-ui/core/colors/grey';
@@ -19,10 +19,9 @@ function App() {
             <Header/>
           </FiltersProvider>
           <Switch>
-              <MoviesProvider>
-                <Route exact path="/" component={Root}/>
-                <Route path="/:id" component={SingleMovie}/>     
-              </MoviesProvider>  
+              <Route path="/detail/:id" component={SingleMovie}/> 
+              <Route path="/series" component={NewRootSeries}/>
+              <Route exact path="/" component={NewRoot}/>
           </Switch>  
         </div>
       </BrowserRouter>
