@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { videodirseries } from '../../utils/utils';
+import React, { useState, useRef, useEffect } from 'react';
+import { videodirseries, upadtelastAPI } from '../../utils/utils';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
@@ -11,19 +11,45 @@ import OneStep from '../one-step/OneStep';
 
 const DetailSerie = props => {
     const videoRef = useRef()
-    const [videosrc, setVideosrc] = useState(props.data.lastSeasonViewed ? videodirseries+props.data.saisons[props.data.lastSeasonViewed].episodes[props.data.lastEpisodeViewed].videoName : videodirseries+props.data.saisons[0].episodes[0].videoName);
+    const [videosrc, setVideosrc] = useState(props.data.lastSeasonViewed || props.data.lastEpisodeViewed ? videodirseries+props.data.saisons[props.data.lastSeasonViewed].episodes[props.data.lastEpisodeViewed].videoName : videodirseries+props.data.saisons[0].episodes[0].videoName);
     const [last_saison, setLast_saison] = useState(props.data.lastSeasonViewed ? props.data.lastSeasonViewed : 0);
     const [last_episode, setLast_episode] = useState(props.data.lastEpisodeViewed ? props.data.lastEpisodeViewed : 0);
-
 // °°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°
-const handleSrcChange = (newsaison, newepisode) => {
-    console.log(newsaison, newepisode)
-    setLast_saison(newsaison)
-    setLast_episode(newepisode)
-    setVideosrc(videodirseries+props.data.saisons[newsaison].episodes[newepisode].videoName)
-    videoRef.current.load()
-}
+    useEffect(() => {
+        videoRef.current.addEventListener("ended", () => {
+            let newlast_episode = last_episode
+            let newlast_saison = last_saison
+            if(last_episode === (props.data.saisons[last_saison].episodes.length - 1) && last_saison === (props.data.saisons.length-1)){
+                newlast_episode = 0;
+                newlast_saison = 0
+            }else{
+                if(last_episode === (props.data.saisons[last_saison].episodes.length - 1)){
+                    newlast_saison++
+                    newlast_episode = 0
+                }else{
+                    newlast_episode++
+                }
+            }
+            fetch(`${upadtelastAPI}/${props.data.id}/${newlast_saison}/${newlast_episode}`);
+        })
+    }, [last_saison, last_episode, props.data]);
+// °°°°°°°°°°°°°°°°°°°°°
+// °°°°°°°°°°°°°°°°°°°°°
+    const handleSrcChange = (newsaison, newepisode, toSave) => {
+        setLast_saison(newsaison)
+        setLast_episode(newepisode)
+        setVideosrc(videodirseries+props.data.saisons[newsaison].episodes[newepisode].videoName)
+        videoRef.current.load()
+        if(toSave){
+            uptadeApiLastField(newepisode, newsaison)
+        }
+    }
+// °°°°°°°°°°°°°°°°°°°°°
+// °°°°°°°°°°°°°°°°°°°°°
+    const uptadeApiLastField = (newlastepisode, newlastsaison) => {
+        fetch(`${upadtelastAPI}/${props.data.id}/${newlastsaison}/${newlastepisode}`);
+    }
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
     return(

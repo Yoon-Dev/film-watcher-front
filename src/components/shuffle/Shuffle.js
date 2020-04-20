@@ -6,8 +6,7 @@ const Shuffle = props => {
     const handleClick = () => {
         const randSaison = Math.floor((Math.random() * props.data.length));
         const randEpisode = Math.floor((Math.random() * props.data[randSaison].episodes.length) + 1);
-        console.log(randSaison, randEpisode)
-        props.changeSrc(randSaison, randEpisode)
+        props.changeSrc(randSaison, randEpisode, false)
     }
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°

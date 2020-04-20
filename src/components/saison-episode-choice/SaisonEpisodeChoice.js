@@ -33,10 +33,9 @@ const SaisonEpisodeChoice = props => {
             return menu;   
         };
         const insideHandleCloseEpisode = (isChoiced, choice = null, newcos = null) => {
-            console.log("INSIDE")
             setAnchorElEpisode(null);
             if(isChoiced){
-                props.changeSrc(saisonCurrentRef.current, choice)
+                props.changeSrc(saisonCurrentRef.current, choice, false)
                 setEpisodeCurrent(choice)
                 setCosmetiqueEpisode(`Episode ${newcos.numero}`)
             }
@@ -54,7 +53,11 @@ const SaisonEpisodeChoice = props => {
         const handleClose = (isChoiced, choice = null, newcos = null) => {
             setAnchorEl(null);
             if(isChoiced){
-                props.changeSrc(choice, episodeCurrentRef.current)
+                if(props.data[choice].episodes[episodeCurrentRef.current]){
+                    props.changeSrc(choice, episodeCurrentRef.current, false)
+                }else{
+                    props.changeSrc(choice, 0, false)
+                }     
                 setSaisonCurrent(choice)
                 setCosmetique(`Saison ${newcos}`)
             }

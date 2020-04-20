@@ -31,24 +31,23 @@ const OneStep = props => {
 // °°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°
     const handleClick = () => {
-        console.log(props.direct, props.last_saison, props.last_episode, typeof(props.last_episode), props.data, props.changeSrc)
         if(dir === "right"){
             if(last_episode < props.data[last_saison].episodes.length-1){
                 setLast_episode(last_episode+1)
-                props.changeSrc(last_saison, last_episode+1)
+                props.changeSrc(last_saison, last_episode+1, true)
             }else{
                 setLast_saison(last_saison+1)
                 setLast_episode(0)
-                props.changeSrc(last_saison+1, 0)
+                props.changeSrc(last_saison+1, 0, true)
             }
         }else{
             if(last_episode < 1){
                 setLast_saison(last_saison-1)
                 setLast_episode(props.data[last_saison-1].episodes.length-1)
-                props.changeSrc(last_saison-1, props.data[last_saison-1].episodes.length-1)
+                props.changeSrc(last_saison-1, props.data[last_saison-1].episodes.length-1, true)
             }else{
                 setLast_episode(last_episode-1)
-                props.changeSrc(last_saison, last_episode-1)
+                props.changeSrc(last_saison, last_episode-1, true)
             }
         }
     }
