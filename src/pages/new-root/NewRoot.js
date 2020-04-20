@@ -2,7 +2,7 @@ import React from 'react';
 import Root from '../../components/root/Root';
 import { MoviesProvider } from '../../services/movies/Movies';
 
-const NewRoot = props => {
+const NewRoot = () => {
     return(
         <MoviesProvider>
             <Root/>

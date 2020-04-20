@@ -13,7 +13,6 @@ const DetailSerie = props => {
 // °°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°
 const handleSrcChange = newsrc => {
-    console.log(newsrc)
     setVideosrc(newsrc)
     videoRef.current.load()
 }

@@ -13,12 +13,9 @@ import './Header.css';
 import Loading from '../loading/Loading';
 import EndAdornment from '../end-adornment/EndAdornment';
 import Logo from '../logo/Logo';
-import { useLocation } from 'react-router-dom';
 
 
 export default function Header() {
-
-    const {pathname} = useLocation() 
     const [loading, setLoading] = useState(true);
     const [filterChoice, setFilterChoice] = useState('data-title');
     const [filterActive, setFilterActive] = useState(true);
@@ -32,14 +29,12 @@ export default function Header() {
 // °°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°
     useEffect(() => {
-        store.subscribe(() => {
-            if(store.getState()){
-                setFilterActive(false)
-            }else{
-                setFilterActive(true)
-            }
-        })
-        if(filters.tags && !pathname.includes("detail")){
+        if(store.getState().id){
+            setFilterActive(false)
+        }else{
+            setFilterActive(true)
+        }
+        if(filters.tags){
             setLoading(false)
         }
     }, [filters]);

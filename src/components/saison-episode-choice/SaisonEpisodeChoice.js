@@ -44,7 +44,6 @@ const SaisonEpisodeChoice = props => {
             const menu = data.map( (item, i) => 
             <MenuItem key={item.id} value={item.numero} onClick={() => handleClose(true, i, item.numero)}>{`Saison ${item.numero}`}</MenuItem>
             );
-            console.log(menu)
             return menu;   
         };
         setSaisonMenu(createSaisonMenu(props.data))

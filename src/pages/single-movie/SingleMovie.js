@@ -11,12 +11,12 @@ const SingleMovie = props => {
 // °°°°°°°°°°°°°°°°°°°°°
 
   useEffect(() => {
-    if(store.getState() !== null){
+    if(store.getState().id !== null){
       setLoading(false)
       setDetailMovie(createDetailMovie(store.getState()))
     }else{
       setTimeout(() => {
-        if(store.getState() === null){
+        if(store.getState().id === null){
           setDetailMovie(createRedirectAll("/"))
         }     
       },1000);  
