@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
-import { videodirseries } from '../../utils/utils';
 
 
 const SaisonEpisodeChoice = props => {
@@ -16,38 +15,64 @@ const SaisonEpisodeChoice = props => {
     const [cosmetique, setCosmetique] = useState(props.last_season ? `Saison ${props.data[props.last_season].numero}` :  `Saison ${props.data[0].numero}` );
     const [cosmetiqueEpisode, setCosmetiqueEpisode] = useState(props.last_season && props.last_episode ? `Episode ${props.data[props.last_season].episodes[props.last_episode].numero}` :  `Episode ${props.data[0].episodes[0].numero}` );
     const [saisonCurrent, setSaisonCurrent] = useState(props.last_season ? props.last_season : 0);
+    const saisonCurrentRef = useRef(saisonCurrent)
+    const [episodeCurrent, setEpisodeCurrent] = useState(props.last_episode ? props.last_episode : 0);
+    const episodeCurrentRef = useRef(episodeCurrent)
     const [episodeMenu, setEpisodeMenu] = useState(null);
     const [saisonMenu, setSaisonMenu] = useState(null);
 
 // °°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°
     useEffect(() => {
+        setSaisonCurrent(props.last_season)
+        setCosmetiqueEpisode(`Episode ${props.data[props.last_season].episodes[props.last_episode].numero}`)
         const createEpisodeMenu = (data) => {   
-            const menu = data.map( (item) => 
-                <MenuItem key={item.id} value={item.numero} onClick={() => insideHandleCloseEpisode(true, null, item)}>{`Episode ${item.numero}`}</MenuItem>   
+            const menu = data.map( (item, i) => 
+                <MenuItem key={item.id} value={item.numero} onClick={() => insideHandleCloseEpisode(true, i, item)}>{`Episode ${item.numero}`}</MenuItem>   
             );
             return menu;   
         };
         const insideHandleCloseEpisode = (isChoiced, choice = null, newcos = null) => {
+            console.log("INSIDE")
             setAnchorElEpisode(null);
             if(isChoiced){
-                props.changeSrc(videodirseries+newcos.videoName)
+                props.changeSrc(saisonCurrentRef.current, choice)
+                setEpisodeCurrent(choice)
                 setCosmetiqueEpisode(`Episode ${newcos.numero}`)
             }
         };
-        setEpisodeMenu(createEpisodeMenu(props.data[saisonCurrent].episodes))
+        setEpisodeMenu(createEpisodeMenu(props.data[props.last_season].episodes))
     }, [saisonCurrent, props]);
 // °°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°
     useEffect(() => {
+        setCosmetique(`Saison ${props.data[props.last_season].numero}`)
         const createSaisonMenu = (data) => {   
             const menu = data.map( (item, i) => 
             <MenuItem key={item.id} value={item.numero} onClick={() => handleClose(true, i, item.numero)}>{`Saison ${item.numero}`}</MenuItem>
             );
+        const handleClose = (isChoiced, choice = null, newcos = null) => {
+            setAnchorEl(null);
+            if(isChoiced){
+                props.changeSrc(choice, episodeCurrentRef.current)
+                setSaisonCurrent(choice)
+                setCosmetique(`Saison ${newcos}`)
+            }
+        };
             return menu;   
         };
         setSaisonMenu(createSaisonMenu(props.data))
-    }, [props.data]);
+    }, [props]);
+// °°°°°°°°°°°°°°°°°°°°°
+// °°°°°°°°°°°°°°°°°°°°°
+    useEffect(() => {
+        saisonCurrentRef.current = saisonCurrent
+    }, [saisonCurrent]);
+// °°°°°°°°°°°°°°°°°°°°°
+// °°°°°°°°°°°°°°°°°°°°°
+    useEffect(() => {
+        episodeCurrentRef.current = episodeCurrent
+    }, [episodeCurrent]);
 // °°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°
 const handleClick = (event) => {   
@@ -60,21 +85,13 @@ const handleClickEpisode = (event) => {
 };
 // °°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°
-const handleClose = (isChoiced, choice = null, newcos = null) => {
+const handleClose = () => {
     setAnchorEl(null);
-    if(isChoiced){
-        setSaisonCurrent(choice)
-        setCosmetique(`Saison ${newcos}`)
-    }
 };
 // °°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°
-const handleCloseEpisode = (isChoiced, choice = null, newcos = null) => {
+const handleCloseEpisode = () => {
     setAnchorElEpisode(null);
-    if(isChoiced){
-        props.changeSrc(videodirseries+newcos.videoName)
-        setCosmetiqueEpisode(`Episode ${newcos.numero}`)
-    }
 };
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
@@ -90,7 +107,7 @@ const handleCloseEpisode = (isChoiced, choice = null, newcos = null) => {
                     anchorEl={anchorEl}
                     keepMounted
                     open={Boolean(anchorEl)}
-                    onClose={() => handleClose(false)}
+                    onClose={() => handleClose()}
                     >
                     {saisonMenu ? saisonMenu : "loading"}
                 </Menu>
@@ -105,7 +122,7 @@ const handleCloseEpisode = (isChoiced, choice = null, newcos = null) => {
                     anchorEl={anchorElEpisode}
                     keepMounted
                     open={Boolean(anchorElEpisode)}
-                    onClose={() => handleCloseEpisode(false)}
+                    onClose={() => handleCloseEpisode()}
                     >
                     {episodeMenu ? episodeMenu : "loading"}
                 </Menu>

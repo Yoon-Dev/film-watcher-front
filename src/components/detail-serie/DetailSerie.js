@@ -6,14 +6,22 @@ import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 import Fade from 'react-reveal/Fade';
 import SaisonEpisodeChoice from '../saison-episode-choice/SaisonEpisodeChoice';
+import Shuffle from '../shuffle/Shuffle';
+import OneStep from '../one-step/OneStep';
 
 const DetailSerie = props => {
     const videoRef = useRef()
-    const [videosrc, setVideosrc] = useState(props.data.lastSeasonViewed ? videodirseries+props.data.saisons[0].episodes[0].videoName : videodirseries+props.data.saisons[0].episodes[0].videoName);
+    const [videosrc, setVideosrc] = useState(props.data.lastSeasonViewed ? videodirseries+props.data.saisons[props.data.lastSeasonViewed].episodes[props.data.lastEpisodeViewed].videoName : videodirseries+props.data.saisons[0].episodes[0].videoName);
+    const [last_saison, setLast_saison] = useState(props.data.lastSeasonViewed ? props.data.lastSeasonViewed : 0);
+    const [last_episode, setLast_episode] = useState(props.data.lastEpisodeViewed ? props.data.lastEpisodeViewed : 0);
+
 // °°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°
-const handleSrcChange = newsrc => {
-    setVideosrc(newsrc)
+const handleSrcChange = (newsaison, newepisode) => {
+    console.log(newsaison, newepisode)
+    setLast_saison(newsaison)
+    setLast_episode(newepisode)
+    setVideosrc(videodirseries+props.data.saisons[newsaison].episodes[newepisode].videoName)
     videoRef.current.load()
 }
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
@@ -50,12 +58,21 @@ const handleSrcChange = newsrc => {
                             </Typography>
                         </Grid>
                         <Grid item xs={12}className="flex-center">
-                            <SaisonEpisodeChoice data={props.data.saisons} last_season={props.data.lastSeasonViewed} last_episode={props.data.lastEpisodeViewed} changeSrc={handleSrcChange}/>
+                            <SaisonEpisodeChoice data={props.data.saisons} last_season={last_saison} last_episode={last_episode} changeSrc={handleSrcChange}/>
                         </Grid>
                         <Grid item xs={12}className="flex-center">
                             <video className="video" controls preload="auto" ref={videoRef}>
                                 <source src={videosrc} type="video/mp4"/>
                             </video> 
+                        </Grid>
+                        <Grid item xs={4} className="flex-center">
+                            <OneStep direct="left" last_saison={last_saison} last_episode={last_episode} changeSrc={handleSrcChange} data={props.data.saisons}/>
+                        </Grid>
+                        <Grid item xs={4} className="flex-center">
+                            <Shuffle data={props.data.saisons} changeSrc={handleSrcChange}/>
+                        </Grid>
+                        <Grid item xs={4} className="flex-center">
+                            <OneStep direct="right" last_saison={last_saison} last_episode={last_episode} changeSrc={handleSrcChange} data={props.data.saisons}/>
                         </Grid>
                     </Grid>
                 </CardContent>
