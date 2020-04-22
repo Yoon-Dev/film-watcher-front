@@ -46,7 +46,7 @@ const MovieChoice = props => {
             onClose={() => handleClose(false)}
             >
             {props.videos.map((video) => (
-                <MenuItem key={video.id} value={video.name} onClick={() => handleClose(true, videodir+video.videoName, video.name)}>
+                <MenuItem key={video.id} value={video.name} onClick={() => handleClose(true, videodir+video.video_name, video.name)}>
                 {video.name}
                 </MenuItem>
             ))}

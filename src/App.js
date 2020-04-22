@@ -4,9 +4,10 @@ import Header from './components/header/Header';
 import { FiltersProvider } from './services/filter/Filter';
 import NewRoot from './pages/new-root/NewRoot';
 import NewRootSeries from './pages/new-root-series/NewRootSeries';
-import SingleMovie from './pages/single-movie/SingleMovie';
+import NewSingleMovie from './pages/new-single-movie/NewSingleMovie';
 import SingleSerie from './pages/single-serie/SingleSerie';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+
 import './App.css';
 
 function App() {
@@ -18,12 +19,12 @@ function App() {
           <FiltersProvider>
             <Header/>
           </FiltersProvider>
-          <Switch>
-              <Route exact path="/detail/:id" component={SingleMovie}/> 
+            <Switch>
+              <Route exact path="/" component={NewRoot}/>
+              <Route exact path="/detail/:id" component={NewSingleMovie}/> 
               <Route path="/detail/series/:id" component={SingleSerie}/> 
               <Route path="/series" component={NewRootSeries}/>
-              <Route exact path="/" component={NewRoot}/>
-          </Switch>  
+            </Switch>  
         </div>
       </BrowserRouter>
     </ThemeProvider> 

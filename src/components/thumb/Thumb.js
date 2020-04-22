@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 import { imgdir, imgdirseries, moviesclass, seriesclass } from '../../utils/utils';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
@@ -12,34 +12,18 @@ import { store } from '../../redux/store';
 import Fade from 'react-reveal/Fade';
 
 const Thumb = props => {
-        const [tags, setTags] = useState(null);
-        const [read, setRead] = useState(false);
-        useEffect(() => {
-            if(props.movie){
-
-                let tmptags = '';
-                props.data.tags.forEach((v, i) => {
-                    if(i !== props.data.tags.length - 1){
-                        tmptags += `${v.name}, ` 
-                    }else{
-                        tmptags += v.name
-                    }     
-                });
-                setTags(tmptags)
-            }
-        }, [props.data, props.movie]);
-
+    const [read, setRead] = useState(false);
     const classes = useStyles();
 //  °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
     return (
-        <Grid item xs={12} lg={3}className={`p-cardmovie ${props.movie ? moviesclass: seriesclass}`} data-title={props.data.name} data-tags={props.movie ? tags : props.data.type} data-acteurs={props.movie ? props.data.acteurs : props.data.Chaine} data-realisateur={props.movie ? props.data.realisateur : props.data.Realisateur}>
+        <Grid item xs={12} lg={3}className={`p-cardmovie ${props.movie ? moviesclass: seriesclass}`} data-title={props.data.name} data-tags={props.movie ? props.data.tags : props.data.type} data-acteurs={props.movie ? props.data.acteurs : props.data.Chaine} data-realisateur={props.movie ? props.data.realisateur : props.data.Realisateur}>
             <Fade bottom cascade>
                 <Card>
                     <CardActionArea>
                         <Link to={props.movie ? `/detail/${props.data.id}` : `/detail/series/${props.data.id}`} className={classes.link} onClick={() => store.dispatch({ type: 'ADDSINGLE', data: props.data})}>
                             <CardMedia
-                            image={props.movie ? imgdir+props.data.imageName : imgdirseries+props.data.imageName}
+                            image={props.movie ? imgdir+props.data.image_name : imgdirseries+props.data.image_name}
                             src='img'
                             title={props.data.name}
                             />
@@ -98,7 +82,7 @@ const Thumb = props => {
                                 </Grid>
                                 <Grid item xs={6} className="flex-start">
                                 <Typography variant="h6" component="p">
-                                    {props.movie ? tags : props.data.Realisateur}
+                                    {props.movie ? props.data.tags : props.data.Realisateur}
                                 </Typography>
                                 </Grid>
                                 <Grid item xs={6} className="flex-end">

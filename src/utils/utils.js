@@ -2,7 +2,7 @@ export const imgdir = "http://localhost:8000/images/movies/";
 export const imgdirseries = "http://localhost:8000/images/series/";
 export const videodir = "http://localhost:8000/video/movies/";
 export const videodirseries = "http://localhost:8000/video/series/";
-export const subtitledir = "./subtitle/";
+export const subtitledir = "/subtitle/";
 export const upadtelastAPI = "http://localhost:8000/api/series/addnewslasts"
 
 

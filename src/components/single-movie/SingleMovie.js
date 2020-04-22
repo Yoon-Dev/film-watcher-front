@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
-import DetailMovie from '../../components/detail-movie/DetailMovie';
+import DetailMovie from '../detail-movie/DetailMovie';
 import { store } from '../../redux/store';
-import Loading from '../../components/loading/Loading';
-import RedirectAll from "../../components/redirect-all/RedirectAll";
+import Loading from '../loading/Loading';
+import RedirectAll from "../redirect-all/RedirectAll";
+import { useOneMovie } from '../../services/movies/Movies';
+
 const SingleMovie = props => {
+  const onemovie = useOneMovie();
   const [loading, setLoading] = useState(true);
   const [detailMovie, setDetailMovie] = useState(null);
 // °°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°
 
   useEffect(() => {
-    if(store.getState().id !== null){
+
+    if(store.getState().id !== null && onemovie){
       setLoading(false)
-      setDetailMovie(createDetailMovie(store.getState()))
+      setDetailMovie(createDetailMovie(store.getState().general, store.getState().src ? store.getState().src : onemovie))
     }else{
       setTimeout(() => {
         if(store.getState().id === null){
@@ -21,12 +25,12 @@ const SingleMovie = props => {
         }     
       },1000);  
     }
-  }, [loading]);
+  }, [loading, onemovie]);
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 // Create News
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
-const createDetailMovie = movie => {
-  const detailmovie = <DetailMovie key={movie.id} data={movie}/>;
+const createDetailMovie = (general, src) => {
+  const detailmovie = <DetailMovie key={general.id} general={general} src={src}/>;
   return detailmovie;   
 }
 // °°°°°°°°°°°°°°°°°°°°°
