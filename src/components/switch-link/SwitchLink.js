@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link,  useLocation } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Switch from '@material-ui/core/Switch';
@@ -6,7 +6,6 @@ import Switch from '@material-ui/core/Switch';
 const SwitchLink = () => {
     const {pathname} = useLocation() 
     const [toRedirect, setToRedirect] = useState("/series");
-    const toRedirectRef = useRef(toRedirect)
     const [state, setState] = useState({
         checkedA: pathname.includes("/series") ? true : false,
         checkedB: pathname.includes("/series") ? false : true
@@ -22,11 +21,6 @@ const SwitchLink = () => {
     }, [pathname]);
 // °°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°
-    useEffect(() => {
-        toRedirectRef.current = toRedirect
-    }, [toRedirect]);
-// °°°°°°°°°°°°°°°°°°°°°
-// °°°°°°°°°°°°°°°°°°°°°
     const handleChange = (event) => {
         setState({ ...state, [event.target.name]: event.target.checked });
     };
@@ -34,7 +28,7 @@ const SwitchLink = () => {
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
     return(
         <Grid item xs={2}>
-            <Link to={toRedirectRef.current}>
+            <Link to={toRedirect}>
                 <Switch
                     checked={state.checkedA}
                     onChange={handleChange}

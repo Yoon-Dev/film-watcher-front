@@ -67,7 +67,7 @@ const Thumb = props => {
                                 </Grid>
                                 <Grid item xs={6} className="flex-end">
                                 <Typography variant="h6" component="p">
-                                    {props.movie ? props.data.realisateur : props.data.saisons.length}
+                                    {props.movie ? props.data.realisateur : props.data.nbr_saison}
                                 </Typography>
                                 </Grid>
                                 <Grid item xs={6} className="flex-start">
@@ -87,7 +87,7 @@ const Thumb = props => {
                                 </Grid>
                                 <Grid item xs={6} className="flex-end">
                                 <Typography variant="h6" component="p">
-                                    {props.movie ? props.data.duree : props.data.type}
+                                    {props.movie ? props.data.duree : props.data.tags}
                                 </Typography>
                                 </Grid>
                             </Grid>
