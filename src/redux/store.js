@@ -9,14 +9,16 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, detail)
 
-function detail(state = {general: null, src: null}, action, data) {
+function detail(state = {general: null, src: null, lasts: null}, action, data) {
   switch (action.type) {
     case 'ADDSINGLE':
-      return state = {general: action.data, src: state.src}
+      return state = {general: action.data, src: state.src, lasts: state.lasts}
     case 'ADDSRC':
-      return state = {general: state.general, src: action.data}
+      return state = {general: state.general, src: action.data, lasts: state.lasts}
+    case 'ADDLAST':
+      return state = {general: state.general, src: state.src, lasts: action.data}
     case 'CLEAR':
-      return state = null
+      return state = {general: null, src: null, lasts: null}
     default:
       return state
   }

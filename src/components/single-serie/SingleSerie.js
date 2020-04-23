@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
-import DetailSerie from '../../components/detail-serie/DetailSerie';
+import DetailSerie from '../detail-serie/DetailSerie';
 import { store } from '../../redux/store';
-import Loading from '../../components/loading/Loading';
-import RedirectAll from "../../components/redirect-all/RedirectAll";
+import Loading from '../loading/Loading';
+import RedirectAll from "../redirect-all/RedirectAll";
+import { useOneSerie } from '../../services/series/Series';
+
 
 const SingleSerie = props => {
+  const oneserie = useOneSerie();
   const [loading, setLoading] = useState(true);
   const [detailSerie, setDetailSerie] = useState(null);
 // °°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°
 
   useEffect(() => {
-    if(store.getState() !== null){
+    if(store.getState().id !== null && oneserie){
       setLoading(false)
-      setDetailSerie(createDetailSerie(store.getState()))
+      setDetailSerie(createDetailSerie(store.getState().general, store.getState().src ? store.getState().src : oneserie))
     }else{
       setTimeout(() => {
         if(store.getState() === null){
@@ -22,12 +25,12 @@ const SingleSerie = props => {
         }     
       },1000);  
     }
-  }, [loading]);
+  }, [loading, oneserie]);
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 // Create News
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
-const createDetailSerie = Serie => {
-  const detailSerie = <DetailSerie key={Serie.id} data={Serie}/>;
+const createDetailSerie = (general, src) => {
+  const detailSerie = <DetailSerie key={general.id} general={general} src={src}/>;
   return detailSerie;   
 }
 // °°°°°°°°°°°°°°°°°°°°°

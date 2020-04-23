@@ -6,7 +6,7 @@ import InputBase from '@material-ui/core/InputBase';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles, fade } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useFilters } from '../../services/filter/Filter';
+import { useFilterName } from '../../services/filter/Filter';
 import FiltreChoice from '../filtre-choice/FiltreChoice';
 import { store } from '../../redux/store';
 import './Header.css';
@@ -23,21 +23,21 @@ export default function Header() {
     const [values, setValues] = useState({
         input: ""
     });    
-    const filters = useFilters();
+    const filterfct = useFilterName();
     const classes = useStyles();
     const matches = useMediaQuery('(min-width:1280px)');
 // °°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°
     useEffect(() => {
-        if(store.getState().id){
+        if(store.getState().general){
             setFilterActive(false)
         }else{
             setFilterActive(true)
         }
-        if(filters.tags){
+        if(filterfct){
             setLoading(false)
         }
-    }, [filters]);
+    }, [filterfct]);
 // °°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°
     useEffect(() => {
@@ -52,7 +52,7 @@ export default function Header() {
             setValues({ ...values, [prop]: event.target.value });
         }
 
-        filters.filterName(inputname, filtre)        
+        filterfct(inputname, filtre)        
     }
 // °°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°

@@ -47,8 +47,8 @@ const SaisonEpisodeChoice = props => {
     useEffect(() => {
         setCosmetique(`Saison ${props.data[props.last_season].numero}`)
         const createSaisonMenu = (data) => {   
-            const menu = data.map( (item, i) => 
-            <MenuItem key={item.id} value={item.numero} onClick={() => handleClose(true, i, item.numero)}>{`Saison ${item.numero}`}</MenuItem>
+            const menu = Object.keys(data).map( (item, i) => 
+            <MenuItem key={data[item].id} value={item.numero} onClick={() => handleClose(true, i, data[item].numero)}>{`Saison ${data[item].numero}`}</MenuItem>
             );
         const handleClose = (isChoiced, choice = null, newcos = null) => {
             setAnchorEl(null);

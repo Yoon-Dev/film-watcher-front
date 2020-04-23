@@ -15,7 +15,7 @@ const OneStep = props => {
             case (props.direct === "left" && props.last_episode > 0) || (props.direct === "left" && props.last_saison > 0):
                 setDir('left') 
                 break;
-            case (props.direct === 'right' && props.last_episode !== (props.data[props.last_saison].episodes.length - 1)) || (props.direct === 'right' && props.last_saison !== props.data.length-1):
+            case (props.direct === 'right' && props.last_episode !== (props.data[props.last_saison].episodes.length - 1)) || (props.direct === 'right' && props.last_saison !== Object.keys(props.data).length-1):
                 setDir('right')
                 break;
             default:

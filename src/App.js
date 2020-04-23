@@ -5,7 +5,7 @@ import { FiltersProvider } from './services/filter/Filter';
 import NewRoot from './pages/new-root/NewRoot';
 import NewRootSeries from './pages/new-root-series/NewRootSeries';
 import NewSingleMovie from './pages/new-single-movie/NewSingleMovie';
-import SingleSerie from './pages/single-serie/SingleSerie';
+import NewSingleSerie from './pages/new-single-serie/NewSingleSerie';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import './App.css';
@@ -22,7 +22,7 @@ function App() {
             <Switch>
               <Route exact path="/" component={NewRoot}/>
               <Route exact path="/detail/:id" component={NewSingleMovie}/> 
-              <Route path="/detail/series/:id" component={SingleSerie}/> 
+              <Route path="/detail/series/:id" component={NewSingleSerie}/> 
               <Route path="/series" component={NewRootSeries}/>
             </Switch>  
         </div>

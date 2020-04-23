@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link,  useLocation } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
-import Switch from '@material-ui/core/Switch';
+import Button from '@material-ui/core/Button';
+import SwitchCameraRoundedIcon from '@material-ui/icons/SwitchCameraRounded';
+
+
+
 
 const SwitchLink = () => {
     const {pathname} = useLocation() 
     const [toRedirect, setToRedirect] = useState("/series");
-    const [state, setState] = useState({
-        checkedA: pathname.includes("/series") ? true : false,
-        checkedB: pathname.includes("/series") ? false : true
-    });
 // °°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°
     useEffect(() => {
@@ -19,23 +19,14 @@ const SwitchLink = () => {
             setToRedirect("/series")
         }
     }, [pathname]);
-// °°°°°°°°°°°°°°°°°°°°°
-// °°°°°°°°°°°°°°°°°°°°°
-    const handleChange = (event) => {
-        setState({ ...state, [event.target.name]: event.target.checked });
-    };
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
     return(
         <Grid item xs={2}>
             <Link to={toRedirect}>
-                <Switch
-                    checked={state.checkedA}
-                    onChange={handleChange}
-                    name="checkedA"
-                    inputProps={{ 'aria-label': 'primary checkbox' }}
-                    color="secondary"
-                />
+                <Button>
+                    <SwitchCameraRoundedIcon color="secondary"/>
+                </Button>
             </Link>
         </Grid>
     )

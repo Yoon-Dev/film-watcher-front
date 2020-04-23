@@ -17,7 +17,7 @@ const Thumb = props => {
 //  °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
     return (
-        <Grid item xs={12} lg={3}className={`p-cardmovie ${props.movie ? moviesclass: seriesclass}`} data-title={props.data.name} data-tags={props.movie ? props.data.tags : props.data.type} data-acteurs={props.movie ? props.data.acteurs : props.data.Chaine} data-realisateur={props.movie ? props.data.realisateur : props.data.Realisateur}>
+        <Grid item xs={12} lg={3}className={`p-cardmovie ${props.movie ? moviesclass: seriesclass}`} data-title={props.data.name} data-tags={props.data.tags} data-acteurs={props.movie ? props.data.acteurs : props.data.Chaine} data-realisateur={props.movie ? props.data.realisateur : props.data.Realisateur}>
             <Fade bottom cascade>
                 <Card>
                     <CardActionArea>
@@ -67,7 +67,7 @@ const Thumb = props => {
                                 </Grid>
                                 <Grid item xs={6} className="flex-end">
                                 <Typography variant="h6" component="p">
-                                    {props.movie ? props.data.realisateur : props.data.nbr_saison}
+                                    {props.movie ? props.data.realisateur : props.data.nbr_saisons}
                                 </Typography>
                                 </Grid>
                                 <Grid item xs={6} className="flex-start">

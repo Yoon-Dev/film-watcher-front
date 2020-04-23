@@ -7,7 +7,6 @@ import Thumb from '../thumb/Thumb';
 
 
 const RootSeries = props => {
-    // can use Thumbseries if usefull
     const series = useSeries();
     const [loading, setLoading] = useState(true);
     const [thumbsSeries, setThumbsSeries] = useState(null);
