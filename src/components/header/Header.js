@@ -75,10 +75,7 @@ export default function Header() {
                     <Logo filterActive={filterActive} loading={loading}/>
                     { loading ? <Loading big={false}/> : !filterActive ? null :
                     <Fragment>            
-                        <Grid item xs={5} lg={1} className={matches ? `flex-center` : `flex-end`}>
-                            <FiltreChoice  cb={cbChoice}/>
-                        </Grid>
-                        <Grid item xs={6} lg={10} className="flex-start">
+                        <Grid item xs={6} sm={7}lg={2} className="flex-end">
                             <div className={classes.search}>
                                 <div className={classes.searchIcon}>
                                     <SearchIcon/>
@@ -96,6 +93,9 @@ export default function Header() {
                                 </div>
                             </div>
                         </Grid> 
+                        <Grid item xs={6} sm={3}lg={1} className={matches ? `flex-center` : `flex-start`}>
+                            <FiltreChoice  cb={cbChoice}/>
+                        </Grid>
                     </Fragment>      
                     }
                 </Grid>

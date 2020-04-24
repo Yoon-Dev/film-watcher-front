@@ -1,5 +1,4 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
-import { moviesclass, seriesclass } from '../../utils/utils';
 import { useLocation } from 'react-router-dom';
 
 
@@ -21,7 +20,7 @@ const useTags = () =>{
     const [filterName, setFilterName] = useState(null);
     useEffect(() => {
         setFilterName(() => (input, filter) => {
-            const nodes = document.querySelectorAll(`.${pathname === "/" ? moviesclass : seriesclass}`)
+            const nodes = document.querySelectorAll(`.${pathname === "/" ? process.env.REACT_APP_MOVIES_CLASS: process.env.REACT_APP_SERIES_CLASS}`)
             nodes.forEach(e => {
                 if(filter && filter !== null && e.getAttribute(filter) && e.getAttribute(filter) !== null){
                     const title = e.getAttribute(filter).toLowerCase()

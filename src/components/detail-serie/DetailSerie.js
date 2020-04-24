@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { videodirseries, upadtelastAPI } from '../../utils/utils';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
@@ -15,14 +14,14 @@ const DetailSerie = props => {
     const videoRef = useRef()
     const [last_saison, setLast_saison] = useState(store.getState().lasts ? store.getState().lasts.saison : props.general.last_season_viewed ? props.general.last_season_viewed : 0);
     const [last_episode, setLast_episode] = useState(store.getState().lasts ? store.getState().lasts.episode :props.general.last_episode_viewed ? props.general.last_episode_viewed : 0);
-    const [videosrc, setVideosrc] = useState(videodirseries+props.src[last_saison].episodes[last_episode].video_name);
+    const [videosrc, setVideosrc] = useState(process.env.REACT_APP_VIDEO_DIR_SERIE+props.src[last_saison].episodes[last_episode].video_name);
     // const [videosrc, setVideosrc] = useState(null);
 
     const videosrcRef = useRef(videosrc)
 // °°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°
     useEffect(() => {
-        setVideosrc(videodirseries+props.src[last_saison].episodes[last_episode].video_name)
+        setVideosrc(process.env.REACT_APP_VIDEO_DIR_SERIE+props.src[last_saison].episodes[last_episode].video_name)
         store.dispatch({ type: 'ADDLAST', data: {saison: last_saison, episode: last_episode}})
     }, [last_saison, last_episode, props.src]);
 // °°°°°°°°°°°°°°°°°°°°°
@@ -43,7 +42,7 @@ const DetailSerie = props => {
                     newlast_episode++
                 }
             }
-            fetch(`${upadtelastAPI}/${props.general.id}/${newlast_saison}/${newlast_episode}`).then(res => {
+            fetch(`${process.env.REACT_APP_UPDATE_LASTS}/${props.general.id}/${newlast_saison}/${newlast_episode}`).then(res => {
                 if(res.status !== 200 && !res.ok){
                     alert('SOmething went wrong on the backend when saving last episode')
                 }
@@ -60,7 +59,7 @@ const DetailSerie = props => {
     const handleSrcChange = (newsaison, newepisode, toSave) => {
         setLast_saison(newsaison)
         setLast_episode(newepisode)
-        setVideosrc(videodirseries+props.src[newsaison].episodes[newepisode].video_name)
+        setVideosrc(process.env.REACT_APP_VIDEO_DIR_SERIE+props.src[newsaison].episodes[newepisode].video_name)
         videoRef.current.load()
         if(toSave){
             uptadeApiLastField(newepisode, newsaison)
@@ -69,7 +68,7 @@ const DetailSerie = props => {
 // °°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°
     const uptadeApiLastField = (newlastepisode, newlastsaison) => {
-        fetch(`${upadtelastAPI}/${props.general.id}/${newlastsaison}/${newlastepisode}`);
+        fetch(`${process.env.REACT_APP_UPDATE_LASTS}/${props.general.id}/${newlastsaison}/${newlastepisode}`);
     }
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°

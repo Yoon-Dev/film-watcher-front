@@ -1,5 +1,4 @@
 import React, { useState, Fragment } from 'react';
-import { imgdir, imgdirseries, moviesclass, seriesclass } from '../../utils/utils';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -17,13 +16,13 @@ const Thumb = props => {
 //  °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
     return (
-        <Grid item xs={12} lg={3}className={`p-cardmovie ${props.movie ? moviesclass: seriesclass}`} data-title={props.data.name} data-tags={props.data.tags} data-acteurs={props.movie ? props.data.acteurs : props.data.Chaine} data-realisateur={props.movie ? props.data.realisateur : props.data.Realisateur}>
+        <Grid item xs={12} lg={3}className={`p-cardmovie ${props.movie ? process.env.REACT_APP_MOVIES_CLASS: process.env.REACT_APP_SERIES_CLASS}`} data-title={props.data.name} data-tags={props.data.tags} data-acteurs={props.movie ? props.data.acteurs : props.data.Chaine} data-realisateur={props.movie ? props.data.realisateur : props.data.Realisateur}>
             <Fade bottom cascade>
                 <Card>
                     <CardActionArea>
                         <Link to={props.movie ? `/detail/${props.data.id}` : `/detail/series/${props.data.id}`} className={classes.link} onClick={() => store.dispatch({ type: 'ADDSINGLE', data: props.data})}>
                             <CardMedia
-                            image={props.movie ? imgdir+props.data.image_name : imgdirseries+props.data.image_name}
+                            image={props.movie ? process.env.REACT_APP_IMAGE_DIR+props.data.image_name : process.env.REACT_APP_IMAGE_DIR_SERIE+props.data.image_name}
                             src='img'
                             title={props.data.name}
                             />
@@ -99,7 +98,7 @@ const Thumb = props => {
   );
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     link: {
         textDecoration: 'none',
         '& *': {

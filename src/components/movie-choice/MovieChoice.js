@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { videodir } from '../../utils/utils';
 import Typography from '@material-ui/core/Typography';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -46,7 +45,7 @@ const MovieChoice = props => {
             onClose={() => handleClose(false)}
             >
             {props.videos.map((video) => (
-                <MenuItem key={video.id} value={video.name} onClick={() => handleClose(true, videodir+video.video_name, video.name)}>
+                <MenuItem key={video.id} value={video.name} onClick={() => handleClose(true, process.env.REACT_APP_VIDEO_DIR+video.video_name, video.name)}>
                 {video.name}
                 </MenuItem>
             ))}

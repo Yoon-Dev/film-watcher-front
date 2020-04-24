@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { videodir, subtitledir } from '../../utils/utils';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -12,7 +11,7 @@ import { store } from '../../redux/store';
 const DetailMovie = props => {
     const videoRef = useRef()
     const sourceRef = useRef()
-    const [videosrc, setVideosrc] = useState(videodir+props.src.videos[0].video_name);
+    const [videosrc, setVideosrc] = useState(process.env.REACT_APP_VIDEO_DIR+props.src.videos[0].video_name);
     const [loaded, setLoaded] = useState(false);
     const loadedRef = useRef(loaded)
     useEffect(() => {
@@ -23,7 +22,7 @@ const DetailMovie = props => {
                     if(el && el !== undefined && videoRef.current){
                         let track = document.createElement("track");
                         track.label = el.langue;
-                        track.src = subtitledir+el.subtitle_name;
+                        track.src = process.env.REACT_APP_SUBTITLE_DIR+el.subtitle_name;
                         track.addEventListener("load", () => {
                             track.mode = "showing";
                             videoRef.current.textTracks[0].mode = "showing";
